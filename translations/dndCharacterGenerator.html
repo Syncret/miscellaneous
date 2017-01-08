@@ -2390,6 +2390,23 @@
        Clear_Ability_Scores();
     }
 
+    function Translate_Alignment(alignment)
+    {
+        switch(alignment)
+        {
+          case "Lawful Good": return "守序善良";
+          case "Neutral Good": return "中立善良";
+          case "Chaotic Good": return "混乱善良";
+          case "Lawful Neutral": return "守序中立";
+          case "True Neutral": return "绝对中立";
+          case "Chaotic Neutral": return "混乱中立";
+          case "Lawful Evil": return "守序邪恶";
+          case "Neutral Evil": return "中立邪恶";
+          case "Chaoic Evil": return "混乱邪恶";
+          default: return alignment;
+        }
+    }
+
 
     // This function sets the varibles for the
     // characters religion.
@@ -2423,6 +2440,35 @@
                    document.main.religion_name.focus();
                    break;
        }   // end of switch
+    }
+
+    function Translate_Religion(religion)
+    {
+        switch(religion)
+        {
+          case "None": return "无";
+          case "Boccob": return "博卡布";
+          case "Corellon Larethian": return "柯瑞隆‧拉瑞斯安";
+          case "Ehlonna": return "艾罗娜";
+          case "Erythnul": return "厄瑞斯努";
+          case "Fharlanghn": return "法兰恩";
+          case "Garl Glittergold": return "加尔闪金";
+          case "Gruumsh": return "格乌什";
+          case "Heironeous": return "海若尼斯";
+          case "Hextor": return "海克斯托";
+          case "Kord": return "寇德";
+          case "Moradin": return "摩拉丁";
+          case "Nerull": return "奈落";
+          case "Obad-Hai": return "欧拜‧亥";
+          case "Olidammara": return "渥利达马拉";
+          case "Pelor": return "培罗";
+          case "St. Cuthbert": return "圣‧库斯伯特";
+          case "Vecna": return "威可那";
+          case "Wee Jas": return "维婕丝";
+          case "Yondalla": return "悠达拉";
+          case "Other": return religion;
+          default: return religion;
+        }
     }
 
 
@@ -3039,36 +3085,36 @@
        ability_win = open('', 'Ability', min_feature);
 
        ability_win.document.writeln('<center>');
-       ability_win.document.writeln('Enter your desired ability scores below.<br><br>');
+       ability_win.document.writeln('在下面输入你想要的属性值<br><br>');
        ability_win.document.writeln('<form name=ability>');
        ability_win.document.writeln('<table>');
        ability_win.document.writeln(' <tr>');
-       ability_win.document.writeln('  <td>Strength:</td>');
+       ability_win.document.writeln('  <td>力量:</td>');
        ability_win.document.writeln('  <td><input type=text size=2 name=strength></td>');
        ability_win.document.writeln(' </tr>');
        ability_win.document.writeln(' <tr>');
-       ability_win.document.writeln('  <td>Dexterity:</td>');
+       ability_win.document.writeln('  <td>敏捷:</td>');
        ability_win.document.writeln('  <td><input type=text size=2 name=dexterity></td>');
        ability_win.document.writeln(' </tr>');
        ability_win.document.writeln(' <tr>');
-       ability_win.document.writeln('   <td>Constitution:</td>');
+       ability_win.document.writeln('   <td>体质:</td>');
        ability_win.document.writeln('   <td><input type=text size=2 name=constitution></td>');
        ability_win.document.writeln(' </tr>');
        ability_win.document.writeln(' <tr>');
-       ability_win.document.writeln('   <td>Intelligence:</td>');
+       ability_win.document.writeln('   <td>智力:</td>');
        ability_win.document.writeln('   <td><input type=text size=2 name=intelligence></td>');
        ability_win.document.writeln(' </tr>');
        ability_win.document.writeln(' <tr>');
-       ability_win.document.writeln('  <td>Wisdom:</td>');
+       ability_win.document.writeln('  <td>感知:</td>');
        ability_win.document.writeln('  <td><input type=text size=2 name=wisdom></td>');
        ability_win.document.writeln(' </tr>');
        ability_win.document.writeln(' <tr>');
-       ability_win.document.writeln('  <td>Charisma:</td>');
+       ability_win.document.writeln('  <td>魅力:</td>');
        ability_win.document.writeln('  <td><input type=text size=2 name=charisma></td>');
        ability_win.document.writeln(' </tr>');
     
        ability_win.document.writeln('</table>');
-       ability_win.document.writeln('<input type=button value="Close" onClick="window.opener.Set_Ability_Scores()">');
+       ability_win.document.writeln('<input type=button value="关闭" onClick="window.opener.Set_Ability_Scores()">');
        ability_win.document.writeln('</form>');
        ability_win.document.writeln('</center>');
 
@@ -3987,7 +4033,7 @@
        newwin.document.write('</tr>');
 
        newwin.document.write('<tr>');
-         newwin.document.write('<td>Skill points:</td>');
+         newwin.document.write('<td>技能点数:</td>');
          newwin.document.write('<td align=center><input type=text name=sp2 size=2></td>');
        newwin.document.write('</tr>');
 
@@ -4215,9 +4261,9 @@
            featwin.document.writeln('<tr>');
            featwin.document.writeln('<td align=right>');
            if ( Is_Fighter_Bonus_Feat( index ) )
-              featwin.document.writeln('<font size=-1>(战士额外专长)</font>&nbsp;&nbsp;&nbsp;&nbsp; ');
+              featwin.document.writeln('<font size=-1>(战士额外专长)</font> ');
            if ( Is_Wizard_Bonus_Feat( index ) )
-              featwin.document.writeln('<font size=-1>(法师额外专长)</font>&nbsp;&nbsp;&nbsp;&nbsp; ');
+              featwin.document.writeln('<font size=-1>(法师额外专长)</font> ');
            featwin.document.writeln('</td>');
            featwin.document.writeln('<td>');
            featwin.document.writeln('<b title="', feat_info[index], '.">' , Proper_Case( feat_names[index] ), '</b>:' );
@@ -4237,9 +4283,9 @@
         featwin.document.writeln('<tr>');
         featwin.document.writeln('<td align=right><b>专长点数:</b><br>');
         if ( class_levels[FIGHTER] )
-          featwin.document.writeln('<b>Fighter Feats:</b><br>');
+          featwin.document.writeln('<b>战士专长:</b><br>');
         if ( class_levels[WIZARD] )
-          featwin.document.writeln('<b>Wizard Feats:</b><br>');
+          featwin.document.writeln('<b>法师专长:</b><br>');
         featwin.document.writeln('</td><td align=center><input type=text name=feat_points2 size=2><br>');
         if ( class_levels[FIGHTER] )
           featwin.document.writeln('<input type=text name=fighter_feats2 size=2><br>');
@@ -4249,7 +4295,7 @@
 
         featwin.document.writeln('</table>');
         featwin.document.writeln('<br>');
-        featwin.document.writeln('<input type=button value="Close" onClick="window.close()">');
+        featwin.document.writeln('<input type=button value="关闭" onClick="window.close()">');
         featwin.document.writeln('</form>');
         featwin.document.writeln('</center>');
 
@@ -4711,74 +4757,74 @@
 
        switch ( feat_num )
        {
-          case ARMOR_PROFICIENCY_MEDIUM: t += "Light Armor Proficiency"; break;
-          case ARMOR_PROFICIENCY_HEAVY: t += "Light and Medium Armor Proficiency"; break;
-          case AUGMENT_SUMMONING: t += "Spell Focus"; break;
-          case BREW_POTION: t += "Three spell caster levels."; break;
-          case CLEAVE: t += "Power Attack and a Strength of 13."; break;
-          case COMBAT_EXPERTISE: t += "An Intelligence of 13."; break;
-          case CRAFT_MAGIC_ARMS_AND_ARMOR: "Five spell caster levels."; break;
-          case CRAFT_ROD: t += "Nine spell caster levels."; break;
-          case CRAFT_STAFF: t += "Twelve spell caster levels."; break;
-          case CRAFT_WAND: t += "Nine spell caster levels."; break;
-          case CRAFT_WONDEROUS_ITEM: t += "Three spell caster levels."; break;
-          case DEFLECT_ARROWS: t += "Improved Unarmed Strike and a Dexterity of 13."; break;
-          case DIEHARD: t += "Endurance"; break;
-          case DODGE: t += "Dexterity of 13."; break;
-          case EXOTIC_WEAPON_PROFICIENCY: t += "Base Attack Bonus of +1"; break;
-          case EXTRA_TURNING: t += "Levels in Cleric or Paladin."; break;
-          case FAR_SHOT: t += "Point Blank Shot"; break;
-          case FORGE_RING: t += "Twelve spell caster levels."; break;
-          case GREAT_CLEAVE: t += "Cleave, Power Attack, Strength of 13 and Base Attack Bonus of +4."; break;
-          case GREATER_SPELL_PENETRATION: t += "Spell Penetration"; break;
-          case GREATER_TWO_WEAPON_FIGHTING: t += "Improved Two-Weapon Fighting, Two-Weapon Fighting, " +
-                                           "Dexterity of 19 and Base Attack Bonus of +11."; break;
-          case GREATER_WEAPON_FOCUS: t += "Weapon Proficiency, Weapon Focus and eight levels of Fighter."; break;
-          case GREATER_WEAPON_SPECIALIZATION: t += "Weapon Proficiency, Greater Weapon Focus, Weapon Focus, " +
-                                              "Weapon Specialization and twelve levels of Fighter."; break;
-          case IMPROVED_BULL_RUSH: t += "Power Attack and Strength of 13."; break;
-          case IMPROVED_CRITICAL: t += "Weapon Proficiency and Base Attack Bonus of +8."; break;
-          case IMPROVED_DISARM: t += "Combat Expertise and an Intelligence of 13"; break;
-          case IMPROVED_FEINT: t += "Combat Expertise and an Intelligence of 13."; break;
-          case IMPROVED_GRAPPLE: t += "Improved Unarmed Strike and Dexterity of 13."; break;
-          case IMPROVED_OVERRUN: t += "Power Attack and Strength of 13."; break;
-          case IMPROVED_PRECISE_SHOT: t += "Point Blank Shot, Precise Shot, Dexterity of 19 and " +
-                                           "Base Attack Bonus of +11."; break;
+          case ARMOR_PROFICIENCY_MEDIUM: t += "擅长盔甲（轻型）"; break;
+          case ARMOR_PROFICIENCY_HEAVY: t += "擅长盔甲（轻型与中型）"; break;
+          case AUGMENT_SUMMONING: t += "专攻法术"; break;
+          case BREW_POTION: t += "施法者等级 3"; break;
+          case CLEAVE: t += "猛力攻击 与 13点力量"; break;
+          case COMBAT_EXPERTISE: t += "13点智力"; break;
+          case CRAFT_MAGIC_ARMS_AND_ARMOR: "施法者等级 5"; break;
+          case CRAFT_ROD: t += "施法者等级 9"; break;
+          case CRAFT_STAFF: t += "施法者等级 12"; break;
+          case CRAFT_WAND: t += "施法者等级 9"; break;
+          case CRAFT_WONDEROUS_ITEM: t += "施法者等级 3"; break;
+          case DEFLECT_ARROWS: t += "精通徒手击打 与 13点敏捷"; break;
+          case DIEHARD: t += "耐久"; break;
+          case DODGE: t += "13点敏捷"; break;
+          case EXOTIC_WEAPON_PROFICIENCY: t += "基本攻击加值+1"; break;
+          case EXTRA_TURNING: t += "牧师或圣战士"; break;
+          case FAR_SHOT: t += "近程射击"; break;
+          case FORGE_RING: t += "施法者等级 12"; break;
+          case GREAT_CLEAVE: t += "顺势斩, 猛力攻击, 13点力量值 与 基本攻击加值+4"; break;
+          case GREATER_SPELL_PENETRATION: t += "法术穿透"; break;
+          case GREATER_TWO_WEAPON_FIGHTING: t += "精通双武器攻击, 双武器攻击, " +
+                                           "19点敏捷值 与 基本攻击加值+11"; break;
+          case GREATER_WEAPON_FOCUS: t += "擅长武器, 专攻武器 与 战士等级达到8"; break;
+          case GREATER_WEAPON_SPECIALIZATION: t += "擅长武器, 高等专攻武器, 专攻武器, " +
+                                              "武器专精 与 战士等级达到12"; break;
+          case IMPROVED_BULL_RUSH: t += "猛力攻击 与 13点力量"; break;
+          case IMPROVED_CRITICAL: t += "擅长武器 与 基本攻击加值+8"; break;
+          case IMPROVED_DISARM: t += "寓守于攻 与 13点智力"; break;
+          case IMPROVED_FEINT: t += "寓守于攻 与 13点智力"; break;
+          case IMPROVED_GRAPPLE: t += "精通徒手击打 与 13点敏捷"; break;
+          case IMPROVED_OVERRUN: t += "猛力攻击 与 13点力量"; break;
+          case IMPROVED_PRECISE_SHOT: t += "近程射击, 精准射击, 19点敏捷 与 " +
+                                           "基本攻击加值+11"; break;
 
-          case IMPROVED_SUNDER: t += "Power Attack and Strength of 13."; break;
-          case IMPROVED_TRIP: t += "Combat Expertise and an Intelligence of 13."; break;
-          case IMPROVED_TURNING: t += "A level of Cleric or Paladin."; break;
-          case IMPROVED_TWO_WEAPON_FIGHTING: t += "Two-Weapon Fighting, Dexterity of 17 and " +
-                                             "a Base Attack Bonus of +6."; break;
-          case LEADERSHIP: t += "A total of six class levels."; break;
-          case MANYSHOT: t += "Point Blank Shot, Rapid Shot, Dexterity of 17 and a Base Attack Bonus of +6."; break;
-          case MOBILITY: t += "Dodge and a Dexterity of 13."; break;
-          case MOUNTED_ARCHERY: t += "Mounted Combat and a rank in the Ride skill."; break;
-          case MOUNTED_COMBAT: t += "One rank in the Ride skill."; break;
-          case NATURAL_SPELL: t += "Wisdom of 13."; break;
-          case POWER_ATTACK: t += "Strength of 13."; break;
-          case PRECISE_SHOT: t += "Point Blank Shot"; break;
-          case QUICK_DRAW: t += "Base Attack Bonus of +1"; break;
-          case RAPID_SHOT: t += "Point Blank Shot and Dexterity of 13."; break;
-          case RIDE_BY_ATTACK: t += "Mounted Combat and a rank in the Ride skill."; break;
-          case SCRIBE_SCROLL: t += "A level in a spell casting class."; break;          
-          case SHOT_ON_THE_RUN: t += "Dodge, Mobility, Point Blank Shot, Dexterity of 13 and " +
-                                     "a Base Attack Bonus of +4."; break;
-          case SNATCH_ARROWS: t += "Deflect Arrows, Imporved Unarmed Strike and a Dexterity of 15."; break;
-          case SPELL_MASTERY: t += "A level in the Wizard class."; break;
-          case SPIRITED_CHARGE: t += "Mounted Combat, Ride-By Attack and a rank in the Ride skill."; break;
-          case SPRING_ATTACK: t += "Dodge, Mobility, Dexterity of 13 and a Base Attack Bonus of +4."; break;
-          case STUNNING_FIST: t += "Improved Unarmed Attack, Dexterity of 13, Wisdom of 13 and " +
-                                   "a Base Attack Bonus of +8."; break;
-          case TOWER_SHIELD_PROFICIENCY: t += "Shield Proficiency"; break;
-          case TRAMPLE: t += "Mounted Combat and a rank in the Ride skill."; break;
-          case TWO_WEAPON_DEFENCE: t += "Two-Weapon Fighting and a Dexterity of 15."; break;
-          case TWO_WEAPON_FIGHTING: t += "Dexterity of 15."; break;
-          case WEAPON_FINESSE: t += "Base Attack Bonus of +1."; break;
-          case WEAPON_FOCUS: t += "Base Attack Bonus of +1."; break;
-          case WEAPON_SPECIALIZATION: t += "Weapon Focus and four levels in the Fighter class."; break;
-          case WHIRLWIND_ATTACK: t += "Combat Expertise, Dodge, Mobility, Spring Attack, " +
-                                      "Dexterity of 13, Intelligence of 13 and a Base Attack Bonus of +4."; break;
+          case IMPROVED_SUNDER: t += "猛力攻击 与 13点力量"; break;
+          case IMPROVED_TRIP: t += "寓守于攻 与 13点智力"; break;
+          case IMPROVED_TURNING: t += "牧师或圣战士"; break;
+          case IMPROVED_TWO_WEAPON_FIGHTING: t += "双武器攻击, 17点敏捷 与 " +
+                                             "基本攻击加值+6"; break;
+          case LEADERSHIP: t += "人物总等级达到 6"; break;
+          case MANYSHOT: t += "近程射击, 快速射击, 17点敏捷与 基本攻击加值+6"; break;
+          case MOBILITY: t += "闪避 与 13点敏捷"; break;
+          case MOUNTED_ARCHERY: t += "骑乘战斗 与 骑术 1"; break;
+          case MOUNTED_COMBAT: t += "骑术 1"; break;
+          case NATURAL_SPELL: t += "13点感知"; break;
+          case POWER_ATTACK: t += "13点力量"; break;
+          case PRECISE_SHOT: t += "近程射击"; break;
+          case QUICK_DRAW: t += "基本攻击加值+1"; break;
+          case RAPID_SHOT: t += "近程射击 与 13点敏捷"; break;
+          case RIDE_BY_ATTACK: t += "骑乘战斗 与 骑术 1"; break;
+          case SCRIBE_SCROLL: t += "：施法者等级 1"; break;          
+          case SHOT_ON_THE_RUN: t += "闪避, 灵活移动, 近程射击, 13点敏捷 与 " +
+                                     "基本攻击加值+4"; break;
+          case SNATCH_ARROWS: t += "拨挡飞箭, 精通徒手击打 与 15点敏捷"; break;
+          case SPELL_MASTERY: t += "法师等级 1"; break;
+          case SPIRITED_CHARGE: t += "骑乘战斗, 快速骑乘攻击 与 骑术 1"; break;
+          case SPRING_ATTACK: t += "闪避, 灵活移动, 13点敏捷 与 基本攻击加值+4"; break;
+          case STUNNING_FIST: t += "精通徒手攻击, 13点敏捷, 13点感知 与 " +
+                                   "基本攻击加值+8"; break;
+          case TOWER_SHIELD_PROFICIENCY: t += "擅长盾牌"; break;
+          case TRAMPLE: t += "骑乘战斗 与 骑术 1"; break;
+          case TWO_WEAPON_DEFENCE: t += "双武器攻击 与 15点敏捷"; break;
+          case TWO_WEAPON_FIGHTING: t += "15点敏捷"; break;
+          case WEAPON_FINESSE: t += "基本攻击加值+1"; break;
+          case WEAPON_FOCUS: t += "基本攻击加值+1"; break;
+          case WEAPON_SPECIALIZATION: t += "专攻武器 与 战士等级 4"; break;
+          case WHIRLWIND_ATTACK: t += "寓守于攻, 闪避, 灵活移动, 跳跃攻击, " +
+                                      "13点敏捷, 13点智力 与 基本攻击加值+4"; break;
 
           default: "你未满足学习此技能的所有需求"; break;
        }  // end of switch
@@ -5972,39 +6018,39 @@
         swapwin = open('', 'Swap', min_feature);
        
         swapwin.document.writeln('<center>');
-        swapwin.document.writeln('Swap ability scores<br><br>'); 
+        swapwin.document.writeln('交换属性值<br><br>'); 
         swapwin.document.writeln('<form name=swap>');
         swapwin.document.writeln('<table>');
-        swapwin.document.writeln('<tr><td>Stength:</td>');
+        swapwin.document.writeln('<tr><td>力量:</td>');
         swapwin.document.writeln('<td><input type=text size=2 name=strength></td>');
         swapwin.document.writeln('<td><input type=button value="Swap" onClick="window.opener.Swap_Ability(1)"></td>');
         swapwin.document.writeln('</tr>');
-        swapwin.document.writeln('<tr><td>Dexterity:</td>');
+        swapwin.document.writeln('<tr><td>敏捷:</td>');
         swapwin.document.writeln('<td><input type=text size=2 name=dexterity></td>');
         swapwin.document.writeln('<td><input type=button value="Swap" onClick="window.opener.Swap_Ability(2)"></td>');
         swapwin.document.writeln('</tr>');
-        swapwin.document.writeln('<tr><td>Constitution:</td>');
+        swapwin.document.writeln('<tr><td>体质:</td>');
         swapwin.document.writeln('<td><input type=text size=2 name=constitution></td>');
         swapwin.document.writeln('<td><input type=button value="Swap" onClick="window.opener.Swap_Ability(3)"></td>');
         swapwin.document.writeln('</tr>');
-        swapwin.document.writeln('<tr><td>Intelligence:</td>');
+        swapwin.document.writeln('<tr><td>智力:</td>');
         swapwin.document.writeln('<td><input type=text size=2 name=intelligence></td>');
         swapwin.document.writeln('<td><input type=button value="Swap" onClick="window.opener.Swap_Ability(4)"></td>');
         swapwin.document.writeln('</tr>');
-        swapwin.document.writeln('<tr><td>Wisdom:</td>');
+        swapwin.document.writeln('<tr><td>感知:</td>');
         swapwin.document.writeln('<td><input type=text size=2 name=wisdom></td>');
         swapwin.document.writeln('<td><input type=button value="Swap" onClick="window.opener.Swap_Ability(5)"></td>');
         swapwin.document.writeln('</tr>');
-        swapwin.document.writeln('<tr><td>Charisma:</td>');
+        swapwin.document.writeln('<tr><td>魅力:</td>');
         swapwin.document.writeln('<td><input type=text size=2 name=charisma></td>');
         swapwin.document.writeln('<td><input type=button value="Swap" onClick="window.opener.Swap_Ability(6)"></td>');
         swapwin.document.writeln('</tr>');
         swapwin.document.writeln('<tr><td></td></tr>');
-        swapwin.document.writeln('<tr><td>Swap Value:</td>');
+        swapwin.document.writeln('<tr><td>交换值:</td>');
         swapwin.document.writeln('<td><input type=text name=swap_value size=2></td>');
         swapwin.document.writeln('</td></tr>');
         swapwin.document.writeln('</table>');
-        swapwin.document.writeln('<input type=button value="Close" onClick="window.opener.Swap_Update()">');
+        swapwin.document.writeln('<input type=button value="关闭" onClick="window.opener.Swap_Update()">');
         swapwin.document.writeln('</form>');
         swapwin.document.writeln('</center>');
 
@@ -6295,7 +6341,7 @@
        if ( ( (spell_level == 4) && (spell_index == 38) ) ||
             ( (spell_level == 6) && (spell_index == 38) ) )
        {
-          alert('This is a wizard-only spell.');
+          alert('该法术为法师专属法术');
           Display_Sorcerer_Spells();
           return;
        }
@@ -6317,7 +6363,7 @@
        // check to make sure the sorcerer's charisma is high enough
        if ( (spell_level + 10) > charisma)
        {
-          alert('Your charisma is not high enough to learn this spell.');
+          alert('你的魅力值不足以学习此法术');
           Display_Sorcerer_Spells();
           return;
        }
@@ -6325,7 +6371,7 @@
        // make sure we can learn a spell of this level
        if (num_sorcerer_spells[spell_level] < 1)
        {
-           alert('You cannot learn a spell of this level.');
+           alert('你无法学习此级别的法术');
            Display_Sorcerer_Spells();
            return;
        }
@@ -6358,7 +6404,7 @@
        // make sure we have enough charisma
        if ( (spell_level + 10) > charisma )
        {
-          alert('你没有足够的魅力来学习此法术');
+          alert('你的魅力值不足以学习此法术');
           Display_Bard_Spells();
           return;
        }
@@ -6853,7 +6899,7 @@
 
         // make dynamic list of armor we have
         selector = equip_win.document.equip.elements.armor;
-        item = new Option("Select Armor", -1, true, true);
+        item = new Option("选择装甲", -1, true, true);
         selector.options[ selector.options.length] = item;
         for (index = 66; index <= 77; index++)
         {
@@ -6866,7 +6912,7 @@
 
         // make dynamic list of shields we have
         selector = equip_win.document.equip.elements.shield;
-        item = new Option("Select shield", -1, true, true);
+        item = new Option("选择盾牌", -1, true, true);
         selector.options[ selector.options.length] = item;
         for (index = 78; index <= 83; index++)
         {
@@ -6943,7 +6989,7 @@
        displaywin.document.writeln('<tr>');
        displaywin.document.writeln('  <td>生命值:</td>');
        displaywin.document.writeln('  <td><input type=text name=hit_points size=5></td>');
-       displaywin.document.writeln('  <td>基础攻击加值:</td>');
+       displaywin.document.writeln('  <td>基本攻击加值:</td>');
        displaywin.document.writeln('  <td><input type=text name=base_attack_bonus size=5></td>');
        displaywin.document.writeln('</tr>');
        displaywin.document.writeln('<tr><td><br></td><td></td></tr>');
@@ -7007,9 +7053,9 @@
 
        displaywin.document.writeln('<tr>');
        displaywin.document.writeln('<td>金钱:</td>');
-       displaywin.document.writeln('<td>pp - <input type=text name=pp size=5> ');
-       displaywin.document.writeln('gp - <input type=text name=gold size=5> ');
-       displaywin.document.writeln('sp - ');
+       displaywin.document.writeln('<td>白金币 <input type=text name=pp size=5> ');
+       displaywin.document.writeln('金币 <input type=text name=gold size=5> ');
+       displaywin.document.writeln('银币 ');
        displaywin.document.writeln('<input type=text name=silver size=2> ');
        displaywin.document.writeln('</td>');
        displaywin.document.writeln('<td>防御等级: </td>');
@@ -7079,11 +7125,11 @@
        displaywin.document.display.classes.value = t;
        displaywin.document.display.level.value = total_level;
        displaywin.document.display.race.value = race_name;
-       displaywin.document.display.alignment.value = alignment_name;
+       displaywin.document.display.alignment.value = Translate_Alignment(alignment_name);
        if (religion == OTHER_GOD)
          displaywin.document.display.religion.value = displaywin.opener.document.main.religion_name.value;
        else
-         displaywin.document.display.religion.value = religion_name;
+         displaywin.document.display.religion.value = Translate_Religion(religion_name);
 
        displaywin.document.display.experience.value = experience_points;
        displaywin.document.display.hit_points.value = hit_points;
@@ -7327,7 +7373,7 @@
              if ( (have_skill) && (count != SPEAK_LANGUAGE) )
                 t = t + " + ";
              else if (have_skill)
-                t = t + " extra languages";
+                t = t + " 额外语言";
 
              // display which ability effects the skill
              if (have_skill)
@@ -7476,7 +7522,7 @@
        }   // end of for loop for skills
 
        if (race == ELF)
-         t = t + "Immune to sleep<br>";
+         t = t + "免疫睡眠<br>";
        displaywin.document.writeln('<td><b>技能:</b><br><br>');
        displaywin.document.writeln(t);
        displaywin.document.writeln('<br><br></td>');
@@ -7489,7 +7535,7 @@
            if (eq_have[count])
                t = t + eq_name[count] + " " + eq_bonus[count] + " (" + eq_have[count] + ")<br>";
            if (eq_masterwork[count])
-               t = t + "Masterwork, " + eq_name[count] + " " + eq_bonus[count] + " (" + eq_masterwork[count] + ")<br>";
+               t = t + "精制, " + eq_name[count] + " " + eq_bonus[count] + " (" + eq_masterwork[count] + ")<br>";
        }
        displaywin.document.writeln(t);
        displaywin.document.writeln('<br>');
@@ -7501,7 +7547,7 @@
        displaywin.document.writeln('<tr><td><b>专长/专精:</b><br><br>');
        t = "";
        if (alignment_conflict)
-          t = t + "*May be alignment conflict*<br>";
+          t = t + "*可能有阵营冲突*<br>";
 
        for (count = 0; count <= WIDEN_SPELL; count++)
        {

@@ -748,6 +748,7 @@
 
     var total_level = 1;
     var max_bonus_ability = 0, bonus_ability = 0;
+    var buyAbility = false;
 
     var armour_bonus = 0;
     
@@ -2175,7 +2176,7 @@
                 money += cash * class_levels[class_count];
               else
                 money += (cash * 10) * class_levels[class_count];
-                
+
               if(true) // specify excat money
               {
                   switch (class_count)
@@ -2884,6 +2885,42 @@
        return sum;
      }
 
+    function Set_Scores()
+    {
+       str_mod = Math.round( (strength - 11) / 2 );
+       document.main.strength.value = strength;
+       document.main.str_mod.value = str_mod;
+
+       dex_mod = Math.round( (dexterity - 11) / 2 );
+       document.main.dexterity.value = dexterity;
+       document.main.dex_mod.value = dex_mod;
+
+       con_mod = Math.round( (constitution - 11) / 2 );
+       document.main.constitution.value = constitution;
+       document.main.con_mod.value = con_mod;
+
+       int_mod = Math.round( (intelligence - 11) / 2 );
+       document.main.intelligence.value = intelligence;
+       document.main.int_mod.value = int_mod;
+       
+       wis_mod = Math.round( (wisdom - 11) / 2 );
+       document.main.wisdom.value = wisdom;
+       document.main.wis_mod.value = wis_mod;
+       
+       chr_mod = Math.round( (charisma - 11) / 2 );
+       document.main.charisma.value = charisma;
+       document.main.chr_mod.value = chr_mod;
+
+       document.main.bonus_ability.value = bonus_ability;
+
+       // set min values
+       min_str = strength;
+       min_dex = dexterity;
+       min_con = constitution;
+       min_int = intelligence;
+       min_wis = wisdom;
+       min_chr = charisma;
+    }
    
     // Roll ability scores
     function Roll_Scores()
@@ -2932,38 +2969,14 @@
            // return;
        }
 
-       strength = Roll_Ability();
-       str_mod = Math.round( (strength - 11) / 2 );
-       document.main.strength.value = strength;
-       document.main.str_mod.value = str_mod;
-
+       strength = Roll_Ability();  
        dexterity = Roll_Ability();
-       dex_mod = Math.round( (dexterity - 11) / 2 );
-       document.main.dexterity.value = dexterity;
-       document.main.dex_mod.value = dex_mod;
-
        constitution = Roll_Ability();
-       con_mod = Math.round( (constitution - 11) / 2 );
-       document.main.constitution.value = constitution;
-       document.main.con_mod.value = con_mod;
-
        intelligence = Roll_Ability();
        if ( (race == HALF_ORC) && (intelligence < 5) ) intelligence = 5;
        else if (intelligence < 3) intelligence = 3;
-     
-       int_mod = Math.round( (intelligence - 11) / 2 );
-       document.main.intelligence.value = intelligence;
-       document.main.int_mod.value = int_mod;
-
        wisdom = Roll_Ability();
-       wis_mod = Math.round( (wisdom - 11) / 2 );
-       document.main.wisdom.value = wisdom;
-       document.main.wis_mod.value = wis_mod;
-
        charisma = Roll_Ability();
-       chr_mod = Math.round( (charisma - 11) / 2 );
-       document.main.charisma.value = charisma;
-       document.main.chr_mod.value = chr_mod;
 
        temp_level = total_level;
        while ( (temp_level % 4) != 0)
@@ -2971,15 +2984,9 @@
 
        bonus_ability = temp_level / 4;
        max_bonus_ability = bonus_ability;
-       document.main.bonus_ability.value = bonus_ability;
-
-       // set min values
-       min_str = strength;
-       min_dex = dexterity;
-       min_con = constitution;
-       min_int = intelligence;
-       min_wis = wisdom;
-       min_chr = charisma;
+       
+       buyAbility=false;
+       Set_Scores();       
 
        Calc_Hit_Points();
        Get_Base_Attack_Bonus();
@@ -2991,6 +2998,23 @@
        Calc_Skill_Points();
        Calc_Feat_Points();
        Init_Spells();
+    }
+
+    function Buy_Scores()
+    {
+       Roll_Scores();
+       strength = 8;  
+       dexterity = 8;
+       constitution = 8;
+       intelligence = 8;
+       wisdom = 8;
+       charisma = 8;
+
+       bonus_ability += 32;
+       max_bonus_ability = bonus_ability;
+       
+       buyAbility = true;
+       Set_Scores();       
     }
 
 
@@ -3151,141 +3175,109 @@
        ability_win.focus();
     }
 
-
-    function Ability_Down(num)
+    function getAbility(num)
     {
-       var changed = false;
-       
-       // make sure we do not get too many bonus points back
-       if (bonus_ability >= max_bonus_ability)
-          return;
-
-       switch (num)
-       {
-         case 1:
-                 if (strength > min_str)
-                 {
-                   strength--;
-                   str_mod = Math.round( (strength - 11) / 2 );
-                   document.main.strength.value = strength;
-                   document.main.str_mod.value = str_mod;
-                   changed = true;
-                 }
-                 break;
-
-         case 2:
-                 if (dexterity > min_dex)
-                 {
-                   dexterity--;
-                   dex_mod = Math.round( (dexterity - 11) / 2 );
-                   document.main.dexterity.value = dexterity;
-                   document.main.dex_mod.value = dex_mod;
-                   changed = true;
-                 }
-                 break;
-
-         case 3:
-                 if (constitution > min_con)
-                 {
-                   constitution--;
-                   con_mod = Math.round( (constitution - 11) / 2 );
-                   document.main.constitution.value = constitution;
-                   document.main.con_mod.value = con_mod;
-                   changed = true;
-                 }
-                 break;
-
-         case 4:
-                 if (intelligence > min_int)
-                 {
-                   intelligence--;
-                   int_mod = Math.round( (intelligence - 11) / 2 );
-                   document.main.intelligence.value = intelligence;
-                   document.main.int_mod.value = int_mod;
-                   changed = true;
-                 }
-                 break;
-
-         case 5:
-                 if (wisdom > min_wis)
-                 {
-                   wisdom--;
-                   wis_mod = Math.round( (wisdom - 11) / 2 );
-                   document.main.wisdom.value = wisdom;
-                   document.main.wis_mod.value = wis_mod;
-                   changed = true;
-                 }
-                 break;
-
-         case 6:
-                 if (charisma > min_chr)
-                 {
-                   charisma--;
-                   chr_mod = Math.round( (charisma - 11) / 2 );
-                   document.main.charisma.value = charisma;
-                   document.main.chr_mod.value = chr_mod;
-                   changed = true;
-                 }
-                 break;
-
-       }     // end of switch
-
-       if (changed)
-       {
-         bonus_ability++;
-         document.main.bonus_ability.value = bonus_ability;
-       }
+      switch(num)
+      {
+        case 1: return strength;
+        case 2: return dexterity;         
+        case 3: return constitution;
+        case 4: return intelligence;
+        case 5: return wisdom;
+        case 6: return charisma;        
+      }
     }
 
+    function getMinAbility(num){
+      switch(num)
+      {
+        case 1: return min_str;
+        case 2: return min_dex;         
+        case 3: return min_con;
+        case 4: return min_int;
+        case 5: return min_wis;
+        case 6: return min_chr;        
+      }
+    }
 
-    function Ability_Up(num)
+    function setAbility(num, value)
     {
-       // make sure we don't get too many bonus points
-       if (bonus_ability <= 0)
-          return;
-
-       switch (num)
+      switch (num)
        {
-         case 1: strength++;
+         case 1: strength = value;
                  str_mod = Math.round( (strength - 11) / 2 );
                  document.main.strength.value = strength;
                  document.main.str_mod.value = str_mod;
                  break;
 
-         case 2: dexterity++;
+         case 2: dexterity = value;
                  dex_mod = Math.round( (dexterity - 11) / 2 );
                  document.main.dexterity.value = dexterity;
                  document.main.dex_mod.value = dex_mod;
                  break;
 
-         case 3: constitution++;
+         case 3: constitution = value;
                  con_mod = Math.round( (constitution - 11) / 2 );
                  document.main.constitution.value = constitution;
                  document.main.con_mod.value = con_mod;
                  break;
 
-         case 4: intelligence++;
+         case 4: intelligence = value;
                  int_mod = Math.round( (intelligence - 11) / 2 );
                  document.main.intelligence.value = intelligence;
                  document.main.int_mod.value = int_mod;
                  break;
 
-         case 5: wisdom++;
+         case 5: wisdom = value;
                  wis_mod = Math.round( (wisdom - 11) / 2 );
                  document.main.wisdom.value = wisdom;
                  document.main.wis_mod.value = wis_mod;
                  break;
 
-         case 6: charisma++;
+         case 6: charisma = value;
                  chr_mod = Math.round( (charisma - 11) / 2 );
                  document.main.charisma.value = charisma;
                  document.main.chr_mod.value = chr_mod;
                  break;
 
-       }     // end of switch
+       }
+    }
 
-       bonus_ability--;
-       document.main.bonus_ability.value = bonus_ability;
+
+    function Ability_Down(num)
+    {
+      let currentValue=getAbility(num);
+      let adjustValue=1;
+      if(buyAbility){
+        if(currentValue<=14) adjustValue=1;
+        else if(currentValue<=16) adjustValue=2;
+        else adjustValue=3;
+      }
+      // make sure we do not get too many bonus points back
+      if (bonus_ability >= max_bonus_ability) return;
+      if (currentValue<=getMinAbility(num)) return;
+
+      setAbility(num,currentValue-1);
+      bonus_ability+=adjustValue;
+      document.main.bonus_ability.value = bonus_ability;
+    }
+
+
+    function Ability_Up(num)
+    {
+      let currentValue=getAbility(num);
+      let adjustValue=1;
+      if(buyAbility){
+        if(currentValue<14) adjustValue=1;
+        else if(currentValue<16) adjustValue=2;
+        else adjustValue=3;
+      }
+      // make sure we don't get too many bonus points
+      if (bonus_ability < adjustValue)
+         return;
+      setAbility(num,currentValue+1);
+      bonus_ability-=adjustValue;
+      document.main.bonus_ability.value = bonus_ability;
     }
 
     // Calculate the total number of skill
@@ -9176,7 +9168,7 @@ function Get_RandomName()
    <center>
    <font size=+1>
    第3.5版 DnD 角色生成器<br>
-   版本 -- 5.1<br><br>
+   版本 -- 5.1.8.1142<br><br>
    </font>
    </center>
 
@@ -9813,6 +9805,7 @@ function Get_RandomName()
         <tr>
          <td align=right>
            <input type=button name=roll value="Roll值" onClick="Roll_Scores()">
+           <input type=button name=buy value="Buy值" onClick="Buy_Scores()">
          </td>
          <td align=center>
            <input type=button name=roll_help value="属性值帮助" onClick="Ability_Help()">

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <HTML>
 <HEAD>
 	<TITLE>3.5 DnD 角色生成器</title>
@@ -78,11 +79,10 @@
     }
     .others_table{
       text-align:center;
-    }
-
-    
+    }    
   </style>
 	<SCRIPT language="JavaScript">
+    "use strict";
     var shortStyle="body { background: skyblue; font-family: \"Microsoft Yahei\", \"Trebuchet MS\", Georgia, \"Times New Roman\", Times, sans-serif;color: #444; } input, select { border: none; border-radius: 4px; transition: .15s ease-out; box-shadow: 1px 1px 3px rgba(0,0, 0, 0.2); padding:6px  16px; margin-bottom: 4px; vertical-align: middle; text-align: center; } input:hover, select:hover{ box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); } input[type=button] { color: DarkSlateGray; background-color: Cornsilk; white-space:nowrap; } input[type=button]:hover { background: PaleVioletRed; color: #fff; } input[type=text], select { background: #333;color: #ccc; } input[type=checkbox]{-webkit-transform: scale(1.5);box-shadow:none;} table {border: 3px solid #333; border-radius: 13px; padding: 10px; margin-top: 10px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }";
 
     // this varible contains data passed to new pop-ups
@@ -525,7 +525,7 @@
     // in three different arrays (eq_name, eq_cost and eq_bonus). So
     // eq_name[SHORT_SWORD] should be "shortsword".
     
-    MAX_EQUIPMENT = 220;        // so far the max number of items
+    var MAX_EQUIPMENT = 220;        // so far the max number of items
 
     // These define the positions of the
     // STARTing part of a category of equipment.
@@ -3289,8 +3289,8 @@
 
     function Ability_Down(num)
     {
-      let currentValue=getAbility(num);
-      let adjustValue=1;
+      var currentValue=getAbility(num);
+      var adjustValue=1;
       if(buyAbility){
         if(currentValue<=14) adjustValue=1;
         else if(currentValue<=16) adjustValue=2;
@@ -3308,8 +3308,8 @@
 
     function Ability_Up(num)
     {
-      let currentValue=getAbility(num);
-      let adjustValue=1;
+      var currentValue=getAbility(num);
+      var adjustValue=1;
       if(buyAbility){
         if(currentValue<14) adjustValue=1;
         else if(currentValue<16) adjustValue=2;
@@ -9110,7 +9110,7 @@ function Get_RandomName()
 }
 
 function RenderPage(newWin){
-    let newpageStyle = newWin.document.createElement('style');
+    var newpageStyle = newWin.document.createElement('style');
     newpageStyle.type="text/css";
     newpageStyle.innerText=shortStyle;
     newWin.document.head.appendChild(newpageStyle);
@@ -9132,7 +9132,7 @@ function RenderPage(newWin){
 
 			<table class="basic_table">
 				<tr>
-					<td align=right>名字&nbsp&nbsp</td>
+					<td align=right>名字</td>
 					<td>
 						<input type=text name=character_name size=30 value="角色名字">
 					</td>
@@ -9142,7 +9142,7 @@ function RenderPage(newWin){
 				</tr>
 
 				<tr>
-					<td align=right>玩家&nbsp&nbsp</td>
+					<td align=right>玩家</td>
 					<td>
 						<input type=text name=player_name size=30 value="玩家名字">
 					</td>
@@ -9152,7 +9152,7 @@ function RenderPage(newWin){
 				</tr>
 
 				<tr>
-					<td align=right>种族&nbsp&nbsp</td>
+					<td align=right>种族</td>
 					<td>
 						<select name=race size=1 onChange="Set_Race()">
              <option>人类</option>
@@ -9171,7 +9171,7 @@ function RenderPage(newWin){
 				</tr>
 
 				<tr>
-					<td align=right>初始职业&nbsp&nbsp</td>
+					<td align=right>初始职业</td>
 					<td>
 						<select name=starting_class onChange="Set_Starting_Class()">
               <option>野蛮人</option>
@@ -9193,7 +9193,7 @@ function RenderPage(newWin){
 				</tr>
 
         <tr>
-					<td align=right>阵营&nbsp&nbsp</td>
+					<td align=right>阵营</td>
 					<td>
 						<select name=alignment size=1 onChange="Set_Alignment()">
              <option>守序善良</option>
@@ -9213,7 +9213,7 @@ function RenderPage(newWin){
 				</tr>
 
 				<tr>
-					<td align=right>信仰&nbsp&nbsp</td>
+					<td align=right>信仰</td>
 					<td align=left>
 						<select name=religion size=1 onChange="Set_Religion()">
               <option>无</option>
@@ -9268,7 +9268,7 @@ function RenderPage(newWin){
 					<td align=center>等级
 					</td>
 				</tr>
-
+        <tr>
 				<td align=right>
 					<input type=checkbox id=barbarian_class name=barbarian_class checked=true onClick="Set_Class()">
 					<label for="barbarian_class"></label>

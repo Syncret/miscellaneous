@@ -29,10 +29,85 @@
 -->
 
 <HEAD>
-  <TITLE>3.5 DnD 角色生成器</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<TITLE>3.5 DnD 角色生成器</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		body {
+			background: skyblue;
+			font-family: "Microsoft Yahei", "Trebuchet MS", Georgia, "Times New Roman", Times, sans-serif;
+      color: #444;
+		}
+		
+		input,
+		select {
+			border: none;
+			border-radius: 4px;
+			transition: .15s ease-out;
+			box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+			padding: 6px 16px;
+			margin-bottom: 4px;
+			vertical-align: middle;
+			text-align: center;
+		}
+		
+		input:hover,
+		select:hover {
+			box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+		}
+		
+		input[type=button] {
+			color: DarkSlateGray;
+			background-color: Cornsilk;
+			white-space: nowrap;
+		}
+		
+		input[type=button]:hover {
+			background: PaleVioletRed;
+			color: #fff;
+		}
+		
+		input[type=text],
+		select {
+			background: #333;
+			color: #ccc;
+		}
+		
+		input[type=checkbox] {
+			display: none;
+		}
 
-  <SCRIPT language="JavaScript">
+    input[type=checkbox] + label:hover {
+      border: 3px solid PaleVioletRed;
+    }
+		
+		input[type=checkbox] + label {
+			height: 13px;
+			width: 13px;
+      transition: .2s ease-out;
+			box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+			display: inline-block;
+			border: 3px solid #333;
+			border-radius: 13px;
+		}
+		
+		input[type=checkbox]:checked + label {
+			background: #333;
+		}
+
+    table{
+      width:600px;
+      border: 3px solid #333;
+			border-radius: 13px;
+      padding:10px;
+      margin-top:10px;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);      
+    }		
+    td:first-child{
+      min-width:100px;
+      padding:6px
+    }
+	</style>
+	<SCRIPT language="JavaScript">
   <!--
     // this varible contains data passed to new pop-ups
     var min_feature = "scrollbars=yes, menubar=no, status=no, toolbar=no, resizable=yes";
@@ -1141,9 +1216,9 @@
     eq_name[201] = "军用马鞍"; eq_cost[201] = 20.0; eq_bonus[201] = "30lb";
     eq_name[202] = "驮鞍"; eq_cost[202] = 5.0; eq_bonus[202] = "15lb";
     eq_name[203] = "骑鞍"; eq_cost[203] = 10.0; eq_bonus[203] = "25lb";
-    eq_name[204] = "异国军用马鞍"; eq_cost[204] = 60.0; eq_bonus[204] = "40lb";
-    eq_name[205] = "异国驮鞍"; eq_cost[205] = 15.0; eq_bonus[205] = "20lb";
-    eq_name[206] = "异国骑鞍"; eq_cost[206] = 30.0; eq_bonus[206] = "30lb";
+    eq_name[204] = "军用异种马鞍"; eq_cost[204] = 60.0; eq_bonus[204] = "40lb";
+    eq_name[205] = "异种驮鞍"; eq_cost[205] = 15.0; eq_bonus[205] = "20lb";
+    eq_name[206] = "异种骑鞍"; eq_cost[206] = 30.0; eq_bonus[206] = "30lb";
     eq_name[207] = "鞍袋"; eq_cost[207] = 4.0; eq_bonus[207] = "8lb";
 
     // transport
@@ -2432,6 +2507,7 @@
     function Set_Religion()
     {
        religion = document.main.religion.selectedIndex;
+       if(religion!=OTHER_GOD)document.main.religion_name.hidden=true;
        switch (religion)
        {
           case NONE: religion_name = "None"; break;
@@ -2454,7 +2530,9 @@
           case VECNA: religion_name = "Vecna"; break;
           case WEE_JAS: religion_name = "Wee Jas"; break;
           case YONDALLA: religion_name = "Yondalla"; break;
-          case OTHER_GOD: religion_name = "Other";
+          case OTHER_GOD: religion_name = "Other";                   
+                   document.main.religion_name.hidden=false;
+                   document.main.religion_name.value="请在此写明信仰";
                    document.main.religion_name.focus();
                    break;
        }   // end of switch
@@ -5773,7 +5851,7 @@
 
         item_text = eq_win.document.equipment.new_item.value;
         // it should be something longer tan 3 chars
-        if ( item_text.length < 3 )
+        if ( item_text.length < 1 )
            return;
 
        new_option = new Option(item_text, item_text);
@@ -8271,6 +8349,7 @@
        min_wis = wisdom;
        min_int = intelligence;
        min_chr = charisma;
+       buyAbility=false;
 
        Get_Experience_Points();
 
@@ -8470,11 +8549,11 @@
 
         level_up_win.document.writeln('<center>');
         level_up_win.document.writeln('<font size=+1>');
-        level_up_win.document.writeln('Level Up<br><br>');
+        level_up_win.document.writeln('升级<br><br>');
         level_up_win.document.writeln('</font>');
-        level_up_win.document.writeln('Please select the class in which you would like to gain a level.<br><br>');
+        level_up_win.document.writeln('请选择你要升级的职业<br><br>');
         level_up_win.document.writeln('<form name=level_up>');
-        level_up_win.document.writeln('Class: ');
+        level_up_win.document.writeln('职业: ');
         level_up_win.document.writeln('<select name=new_class>');
         level_up_win.document.writeln('<option>野蛮人</option>');
         level_up_win.document.writeln('<option>吟游诗人</option>');
@@ -8489,8 +8568,8 @@
         level_up_win.document.writeln('<option>法师</option>');
         level_up_win.document.writeln('</select>');
         level_up_win.document.writeln('<br><br>');
-        level_up_win.document.writeln('<input type=button value="Level Up" onClick="window.opener.Level_Up()">');
-        level_up_win.document.writeln('<input type=button value="Close" onClick="window.close()">');
+        level_up_win.document.writeln('<input type=button value="升级" onClick="window.opener.Level_Up()">');
+        level_up_win.document.writeln('<input type=button value="关闭" onClick="window.close()">');
         level_up_win.document.writeln('</form>');
         level_up_win.document.writeln('</center>');
 
@@ -8753,16 +8832,11 @@
     {
        newwin = open('', 'Help', min_feature);
        newwin.document.writeln('<center>');
-       newwin.document.writeln('For every four levels of experience you gain, you ');
-       newwin.document.writeln('get a bonus ability point. This point can be added ');
-       newwin.document.writeln('to any of the six ability scores.<br>');
-       newwin.document.writeln('If you are generating a character who has a total ');
-       newwin.document.writeln('level of four or more, you will have the option of ');
-       newwin.document.writeln('placing one or more bonus ability points. These ');
-       newwin.document.writeln('points can be added (or subtracted) from the ');
-       newwin.document.writeln('ability score table using the arrows next to ');
-       newwin.document.writeln('the score boxes above.<br><br>');
-       newwin.document.writeln('对于你获得的每四个级别的经验，你得到一个奖励能力点。 这一点可以添加到六个能力分数中的任何一个。如果你生成一个总数为4或更多的角色，你可以选择放置一个或多个奖励能力点。 这些点可以使用上面分数框旁边的箭头从能力分数表中添加（或减去）。<br><br>');
+       newwin.document.writeln('每4级经验可以使你获得一个额外属性点。你可以把此点数加到任意6项属性值中。<br>');
+       newwin.document.writeln('如果你的初始人物总等级数超过4级，那么你就会有额外的属性点，');
+       newwin.document.writeln('你可以使用属性值左右的箭头来把这些额外属性点加到(或从中减去)对应属性。<br><br>');
+       newwin.document.writeln('如果你使用Buy值的方式购买点数，那么你会有所有属性8点的基础值与32点自由点数。你可以用自由点数购买属性点。<br>');
+       newwin.document.writeln('购买价格为属性值14点以下时1点自由点数换1点属性点；15-16时2点自由点数换1点属性点；17以上时3点自由点数换1点属性点。<br><br>');
        newwin.document.writeln('<form>');
        newwin.document.writeln('<input type=button value="Close" onClick="window.close()">');
        newwin.document.writeln('</form>');
@@ -9165,57 +9239,41 @@ function Get_RandomName()
 </head>
 
 <BODY>
-   <center>
-   <font size=+1>
-   第3.5版 DnD 角色生成器<br>
-   版本 -- 5.1.8.1142<br><br>
-   </font>
-   </center>
+	<center>
+		<font size=+1>
+			第3.5版 DnD 角色生成器 <br>5.1.2<br>
+		</font>
+	</center>
 
 
-   <center>
-   <form name=main>
+	<center>
+		<form name=main>
 
-     <table>
-         <tr>
-          <td></td>
-          <td>
-            <input type=button name=display_empty value="显示空白表格" onClick="Display_Empty_Sheet()">
-          </td>
-          <td>
-            <input type=button name=display_help value="显示帮助" onClick="Display_Help()">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <br><br>
-          </td>
-        </tr>
+			<table class="basic_table">
+				<tr>
+					<td align=right>名字&nbsp&nbsp</td>
+					<td>
+						<input type=text name=character_name size=30 value="角色名字">
+					</td>
+					<td>
+						<input type=button name=random_name value="随机名字" onClick="Get_RandomName()">
+					</td>
+				</tr>
 
-        <tr>
-          <td align=right>名字:</td>
-          <td>
-            <input type=text name=character_name size=30 value="角色名字">
-          </td>
-          <td>
-            <input type=button name=random_name value="随机名字" onClick="Get_RandomName()">
-          </td>
-        </tr>
+				<tr>
+					<td align=right>玩家&nbsp&nbsp</td>
+					<td>
+						<input type=text name=player_name size=30 value="玩家名字">
+					</td>
+					<td>
+						<input type=button name="player_name_help" value="名字帮助" onClick="Name_Help()">
+					</td>
+				</tr>
 
-        <tr>
-          <td align=right>玩家:</td>
-          <td>
-            <input type=text name=player_name size=30 value="玩家名字">
-          </td>
-          <td>
-            <input type=button name="player_name_help" value="名字帮助" onClick="Name_Help()">
-          </td>
-        </tr>
-
-        <tr>
-         <td align=right>种族:</td>
-          <td>
-            <select name=race size=1 onChange="Set_Race()">
+				<tr>
+					<td align=right>种族&nbsp&nbsp</td>
+					<td>
+						<select name=race size=1 onChange="Set_Race()">
              <option>人类</option>
              <option>精灵</option>
              <option>矮人</option>
@@ -9225,16 +9283,16 @@ function Get_RandomName()
              <option>侏儒</option>   <!-- Almost forgot the little guys -->
            </select>
 
-         </td>
-         <td>
-           <input type=button name=race_help value="选择种族帮助" onClick="Race_Help()">
-         </td>
-        </tr>
+					</td>
+					<td>
+						<input type=button name=race_help value="选择种族帮助" onClick="Race_Help()">
+					</td>
+				</tr>
 
-        <tr>
-         <td align=right>初始职业:</td>
-         <td>
-           <select name=starting_class onChange="Set_Starting_Class()">
+				<tr>
+					<td align=right>初始职业&nbsp&nbsp</td>
+					<td>
+						<select name=starting_class onChange="Set_Starting_Class()">
               <option>野蛮人</option>
               <option>吟游诗人</option>
               <option>牧师</option>
@@ -9247,414 +9305,16 @@ function Get_RandomName()
               <option>术士</option>
               <option>法师</option>
            </select>
-         </td>
-         <td>
-           <input type=button name="starting_class_help" value="选择初始职业帮助" onClick="Starting_Class_Help()">
-         </td>
-        </tr>
+					</td>
+					<td>
+						<input type=button name="starting_class_help" value="选择初始职业帮助" onClick="Starting_Class_Help()">
+					</td>
+				</tr>
 
         <tr>
-         <td><br></td>
-        </tr>
-
-        <tr>
-          <td></td>
-          <td align=center><b>选择你的职业:</b></td>
-          <td>
-            <input type=button name=class_help value="职业选择帮助" onClick="Class_Help()">
-          </td>
-        </tr>
-
-        <tr>
-          <td align=right>有/无</td>
-          <td align=center>职业</td>
-          <td align=center>等级
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=barbarian_class checked=true onClick="Set_Class()">
-          </td>
-          <td align=center>
-            野蛮人
-          </td>
-          <td align=center>
-            <select name=barbarian_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=bard_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            吟游诗人
-          </td>
-          <td align=center>
-            <select name=bard_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=cleric_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            牧师
-          </td>
-          <td align=center>
-            <select name=cleric_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=druid_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            德鲁伊
-          </td>
-          <td align=center>
-            <select name=druid_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=fighter_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            战士
-          </td>
-          <td align=center>
-            <select name=fighter_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=monk_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            武僧
-          </td>
-          <td align=center>
-            <select name=monk_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=paladin_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            圣武士
-          </td>
-          <td align=center>
-            <select name=paladin_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=ranger_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            巡林客
-          </td>
-          <td align=center>
-            <select name=ranger_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=rogue_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            游荡者
-          </td>
-          <td align=center>
-            <select name=rogue_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=sorcerer_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            术士
-          </td>
-          <td align=center>
-            <select name=sorcerer_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-        <tr>
-          <td align=center>
-            <input type=checkbox name=wizard_class onClick="Set_Class()">
-          </td>
-          <td align=center>
-            法师
-          </td>
-          <td align=center>
-            <select name=wizard_level onChange="Set_Class()">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-              <option>11</option>
-              <option>12</option>
-              <option>13</option>
-              <option>14</option>
-              <option>15</option>
-              <option>16</option>
-              <option>17</option>
-              <option>18</option>
-              <option>19</option>
-              <option>20</option>
-            </select>
-          </td>
-        </tr>
-
-
-        <tr>
-          <td></td>
-          <td align=center>全部等级:</td>
-          <td align=center>
-            <input type=text size=2 name="total_level" value="1">
-          </td>
-        </tr>
-
-        <tr>
-          <td></td>
-          <td><br></td>
-          <td></td>
-        </tr>
-
-
-        <tr>
-         <td align=right>阵营:</td>
-         <td>
-           <select name=alignment size=1 onChange="Set_Alignment()">
+					<td align=right>阵营&nbsp&nbsp</td>
+					<td>
+						<select name=alignment size=1 onChange="Set_Alignment()">
              <option>守序善良</option>
              <option>中立善良</option>
              <option>混乱善良</option>
@@ -9665,16 +9325,16 @@ function Get_RandomName()
              <option>中立邪恶</option>
              <option>混乱邪恶</option>
            </select>
-         </td>
-         <td align=center>
-           <input type=button name=alignment_help value="阵营帮助" onClick="Alignment_Help()">
-         </td>
-        </tr>
+					</td>
+					<td align=left>
+						<input type=button name=alignment_help value="阵营帮助" onClick="Alignment_Help()">
+					</td>
+				</tr>
 
-        <tr>
-          <td align=right>信仰:</td>
-          <td align=left>
-            <select name=religion size=1 onChange="Set_Religion()">
+				<tr>
+					<td align=right>信仰&nbsp&nbsp</td>
+					<td align=left>
+						<select name=religion size=1 onChange="Set_Religion()">
               <option>无</option>
               <option>博卡布 -- 魔法之神 (绝对中立)</option>
               <option>柯瑞隆‧拉瑞斯安 -- 精灵之神 (混乱善良)</option>
@@ -9697,273 +9357,667 @@ function Get_RandomName()
               <option>悠达拉 -- 半身人女神 (守序善良)</option>
               <option>其他</option>
             </select>
-          </td>
-          <td align=center>
-            <input type=button name=religion_help value="信仰帮助" onClick="Religion_Help()">
-          </td>
-        </tr>
+					</td>
+					<td align=left>
+						<input type=button name=religion_help value="信仰帮助" onClick="Religion_Help()">
+					</td>
+				</tr>
 
-        <tr>
-          <td></td>
-          <td>如果是其他，请写明:</td>
-          <td align=center>
-            <input type=text name=religion_name size=10>
-          </td>
-        </tr>
+				<tr>
+					<td></td>
+					<td align=left>
+						<input hidden=true type=text name=religion_name size=10>
+					</td>
+				</tr>
 
-        <tr>
-          <td><br></td>
-        </tr>
+        </table>
+        <table class="class_table">
 
-        <tr>
-          <td></td>
-          <td align=center><b>属性值</b></td>
-          <td align=center><input type=button value="手动输入属性值" onClick="Enter_Ability_Scores()"></td>
-        </tr>
-        <tr>
-          <td align=right>属性</td>
-          <td align=center>值</td>
-          <td align=center>调整</td>
-        </tr>
+				<tr>
+					<td></td>
+					<td align=center><b>选择你的职业:</b></td>
+					<td>
+						<input type=button name=class_help value="职业选择帮助" onClick="Class_Help()">
+					</td>
+				</tr>
 
-        <tr>
-          <td align=right>力量</td>
-          <td align=center>
-            <input type=button name=str_down value="<" onClick="Ability_Down(1)">
-            <input type=text name=strength size=2>
-            <input type=button name=str_up value=">" onClick="Ability_Up(1)">
-          </td>
-          <td align=center>
-            <input type=text name=str_mod size=2>
-          </td>
-        </tr>
+				<tr>
+					<td align=right></td>
+					<td align=center>职业</td>
+					<td align=center>等级
+					</td>
+				</tr>
 
-        <tr>
-          <td align=right>敏捷</td>
-          <td align=center>
-            <input type=button name=dex_down value="<" onClick="Ability_Down(2)">
-            <input type=text name=dexterity size=2>
-            <input type=button name=dex_up value=">" onClick="Ability_Up(2)">
-          </td>
-          <td align=center>
-            <input type=text name=dex_mod size=2>
-          </td>
-        </tr>
+				<td align=right>
+					<input type=checkbox id=barbarian_class name=barbarian_class checked=true onClick="Set_Class()">
+					<label for="barbarian_class"></label>
+				</td>
+				<td align=center>
+					野蛮人
+				</td>
+				<td align=center>
+					<select name=barbarian_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+				</td>
+				</tr>
 
-        <tr>
-          <td align=right>体质</td>
-          <td align=center>
-            <input type=button name=con_down value="<" onClick="Ability_Down(3)">
-            <input type=text name=constitution size=2>
-            <input type=button name=con_up value=">" onClick="Ability_Up(3)">
-          </td>
-          <td align=center>
-            <input type=text name=con_mod size=2>
-          </td>
-        </tr>
-        
-        <tr>
-          <td align=right>智力</td>
-          <td align=center>
-            <input type=button name=int_down value="<" onClick="Ability_Down(4)">
-            <input type=text name=intelligence size=2>
-            <input type=button name=int_up value=">" onClick="Ability_Up(4)">
-          </td>
-          <td align=center>
-            <input type=text name=int_mod size=2>
-          </td>
-        </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=bard_class name=bard_class onClick="Set_Class()">
+						<label for="bard_class"></label>
+					</td>
+					<td align=center>
+						吟游诗人
+					</td>
+					<td align=center>
+						<select name=bard_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
-        <tr>
-          <td align=right>感知</td>
-          <td align=center>
-            <input type=button name=wis_down value="<" onClick="Ability_Down(5)">
-            <input type=text name=wisdom size=2>
-            <input type=button name=wis_up value=">" onClick="Ability_Up(5)">
-          </td>
-          <td align=center>
-            <input type=text name=wis_mod size=2>
-          </td>
-        </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=cleric_class name=cleric_class onClick="Set_Class()">
+						<label for="cleric_class"></label>
+					</td>
+					<td align=center>
+						牧师
+					</td>
+					<td align=center>
+						<select name=cleric_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
-        <tr>
-          <td align=right>魅力</td>
-          <td align=center>
-            <input type=button name=chr_down value="<" onClick="Ability_Down(6)">
-            <input type=text name=charisma size=2>
-            <input type=button name=chr_up value=">" onClick="Ability_Up(6)">
-          </td>
-          <td align=center>
-            <input type=text name=chr_mod size=2>
-          </td>
-        </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=druid_class name=druid_class onClick="Set_Class()">
+						<label for="druid_class"></label>
+					</td>
+					<td align=center>
+						德鲁伊
+					</td>
+					<td align=center>
+						<select name=druid_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
-        <tr>
-          <td><br></td>
-        </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=fighter_class name=fighter_class onClick="Set_Class()">
+						<label for="fighter_class"></label>
+					</td>
+					<td align=center>
+						战士
+					</td>
+					<td align=center>
+						<select name=fighter_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
-        <tr>
-         <td align=right>
-           <input type=button name=roll value="Roll值" onClick="Roll_Scores()">
-           <input type=button name=buy value="Buy值" onClick="Buy_Scores()">
-         </td>
-         <td align=center>
-           <input type=button name=roll_help value="属性值帮助" onClick="Ability_Help()">
-         </td>
-         <td align=center>
-           <input type=button name=mod_help value="交换属性值" onClick="Show_Swap()">
-        </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=monk_class name=monk_class onClick="Set_Class()">
+						<label for="monk_class"></label>
+					</td>
+					<td align=center>
+						武僧
+					</td>
+					<td align=center>
+						<select name=monk_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
-        <tr>
-          <td align=right>额外属性点:</td>
-          <td align=center>
-            <input type=text name=bonus_ability size=2>
-          </td>
-          <td align=center>
-            <input type=button name=bonus_ability_help value="额外属性点帮助" onClick="Bonus_Ability_Help()">
-          </td>
-        </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=paladin_class name=paladin_class onClick="Set_Class()">
+						<label for="paladin_class"></label>
+					</td>
+					<td align=center>
+						圣武士
+					</td>
+					<td align=center>
+						<select name=paladin_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
-        <tr>
-         <td></td>
-         <td><br></td>
-         </td>
-        </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=ranger_class name=ranger_class onClick="Set_Class()">
+						<label for="ranger_class"></label>
+					</td>
+					<td align=center>
+						巡林客
+					</td>
+					<td align=center>
+						<select name=ranger_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
-        <tr>
-          <td></td>
-          <td>
-            <input type=button name=select_skills value="选择技能" onClick="Get_Skills()">
-          </td>
-          <td align>
-            <input type=button name=skill_help value="技能帮助" onClick="Skill_Help()">
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <input type=button name=select_feats value="选择专长" onClick="Get_Feats()">
-          </td>
-          <td> 
-            <input type=button name=feat_help value="专长帮助" onClick="Feat_Help()">
-          </td>
-        </tr>
-        <tr>
-         <td></td>
-         <td>
-           <input type=button name=select_bonus_feats value="选择额外专长" onClick="Get_Bonus_Feats()">
-         </td>
-         <td>
-           <input type=button name=bonus_feat_help value="额外专长帮助" onClick="Bonus_Feat_Help()">
-         </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <input type=button name=select_equipment value="选择道具" onClick="Get_Equipment()">
-          </td>
-          <td>
-            <input type=button name=equipment_help value="道具帮助" onClick="Equipment_Help()">
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <input type=button name=equip_character value="装备角色" onClick="Equip_Char()">
-          </td>
-          <td>
-            <input type=button name=equip_help value="装备帮助" onClick="Equip_Help()">
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <input type=button name=select_languages value="选择语言" onClick="Get_Languages()">
-          </td>
-          <td>
-            <input type=button name=language_help value="语言帮助" onClick="Language_Help()">
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <input type=button name=select_spells value="选择法术" onClick="Get_Spells()">
-          </td>
-          <td>
-            <input type=button name=spell_help value="法术帮助" onClick="Spell_Help()">
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <input type=button name=notes value="额外备注" onClick="Display_Notes()">
-          </td>
-          <td>
-            <input type=button name=notes_help value="备注帮助" onClick="Notes_Help()"
-          </td>
-        </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=rogue_class name=rogue_class onClick="Set_Class()">
+						<label for="rogue_class"></label>
+					</td>
+					<td align=center>
+						游荡者
+					</td>
+					<td align=center>
+						<select name=rogue_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
-        <tr>
-         <td>
-           <br><br>
-         </td>
-       </tr>
-                
-        <tr>
-          <td></td>
-          <td>
-            <input type=button name=display_character value="显示角色" onClick="Display_Character()">
-          </td>
-          <td>
-            <input type=button name=display_character_help value="显示帮助" onClick="Display_Help()">
-          </td>
-        </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=sorcerer_class name=sorcerer_class onClick="Set_Class()">
+						<label for="sorcerer_class"></label>
+					</td>
+					<td align=center>
+						术士
+					</td>
+					<td align=center>
+						<select name=sorcerer_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
-        <tr>
-          <td><br></td>
-        </tr>
-
-        <tr>
-         <td>
-           <input type=button value="保存角色" onClick="Save_Character()">
-         </td>
-         <td>
-           <input type=button value="载入角色" onClick="Display_Load_Character()">
-         </td>
-         <td>
-           <input type=button value="保存/载入帮助" onClick="Save_Load_Help()">
-         </td>
-       </tr>
-
-       <tr>
-         <td></td>
-         <td>
-          <input type=button value="升级" onClick="Display_Level_Up()">
-         </td>
-         <td>
-          <input type=button value="升级帮助" onClick="Level_Up_Help()">
-         </td>
-       </tr>
+				<tr>
+					<td align=right>
+						<input type=checkbox id=wizard_class name=wizard_class onClick="Set_Class()">
+						<label for="wizard_class"></label>
+					</td>
+					<td align=center>
+						法师
+					</td>
+					<td align=center>
+						<select name=wizard_level onChange="Set_Class()">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+					</td>
+				</tr>
 
 
-     </table>
+				<tr>
+					<td></td>
+					<td align=center>全部等级:</td>
+					<td align=center>
+						<input type=text size=2 name="total_level" value="1">
+					</td>
+				</tr>
 
-   </form>
-   </center>
+        </table>
+        <table class="ability_table">
+
+				<tr>
+					<td></td>
+					<td align=center><b>属性值</b></td>
+					<td align=center><input type=button value="手动输入属性值" onClick="Enter_Ability_Scores()"></td>
+				</tr>
+				<tr>
+					<td align=right>属性</td>
+					<td align=center>值</td>
+					<td align=center>调整</td>
+				</tr>
+
+				<tr>
+					<td align=right>力量</td>
+					<td align=center>
+						<input type=button name=str_down value="<" onClick="Ability_Down(1)">
+						<input type=text name=strength size=2>
+						<input type=button name=str_up value=">" onClick="Ability_Up(1)">
+					</td>
+					<td align=center>
+						<input type=text name=str_mod size=2>
+					</td>
+				</tr>
+
+				<tr>
+					<td align=right>敏捷</td>
+					<td align=center>
+						<input type=button name=dex_down value="<" onClick="Ability_Down(2)">
+						<input type=text name=dexterity size=2>
+						<input type=button name=dex_up value=">" onClick="Ability_Up(2)">
+					</td>
+					<td align=center>
+						<input type=text name=dex_mod size=2>
+					</td>
+				</tr>
+
+				<tr>
+					<td align=right>体质</td>
+					<td align=center>
+						<input type=button name=con_down value="<" onClick="Ability_Down(3)">
+						<input type=text name=constitution size=2>
+						<input type=button name=con_up value=">" onClick="Ability_Up(3)">
+					</td>
+					<td align=center>
+						<input type=text name=con_mod size=2>
+					</td>
+				</tr>
+
+				<tr>
+					<td align=right>智力</td>
+					<td align=center>
+						<input type=button name=int_down value="<" onClick="Ability_Down(4)">
+						<input type=text name=intelligence size=2>
+						<input type=button name=int_up value=">" onClick="Ability_Up(4)">
+					</td>
+					<td align=center>
+						<input type=text name=int_mod size=2>
+					</td>
+				</tr>
+
+				<tr>
+					<td align=right>感知</td>
+					<td align=center>
+						<input type=button name=wis_down value="<" onClick="Ability_Down(5)">
+						<input type=text name=wisdom size=2>
+						<input type=button name=wis_up value=">" onClick="Ability_Up(5)">
+					</td>
+					<td align=center>
+						<input type=text name=wis_mod size=2>
+					</td>
+				</tr>
+
+				<tr>
+					<td align=right>魅力</td>
+					<td align=center>
+						<input type=button name=chr_down value="<" onClick="Ability_Down(6)">
+						<input type=text name=charisma size=2>
+						<input type=button name=chr_up value=">" onClick="Ability_Up(6)">
+					</td>
+					<td align=center>
+						<input type=text name=chr_mod size=2>
+					</td>
+				</tr>
+
+				<tr>
+					<td><br></td>
+				</tr>
+
+				<tr>
+					<td align=right>
+						<input type=button name=roll value="Roll值" onClick="Roll_Scores()">
+						<input type=button name=buy value="Buy值" onClick="Buy_Scores()">
+					</td>
+					<td align=center>
+						<input type=button name=roll_help value="属性值帮助" onClick="Ability_Help()">
+					</td>
+					<td align=center>
+						<input type=button name=mod_help value="交换属性值" onClick="Show_Swap()">
+				</tr>
+
+				<tr>
+					<td align=right>额外属性点:</td>
+					<td align=center>
+						<input type=text name=bonus_ability size=2>
+					</td>
+					<td align=center>
+						<input type=button name=bonus_ability_help value="额外属性点帮助" onClick="Bonus_Ability_Help()">
+					</td>
+				</tr>
+
+        </table>
+        <table class="ability_table">
+
+				<tr>
+					<td></td>
+					<td>
+						<input type=button name=select_skills value="选择技能" onClick="Get_Skills()">
+					</td>
+					<td align>
+						<input type=button name=skill_help value="技能帮助" onClick="Skill_Help()">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type=button name=select_feats value="选择专长" onClick="Get_Feats()">
+					</td>
+					<td>
+						<input type=button name=feat_help value="专长帮助" onClick="Feat_Help()">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type=button name=select_bonus_feats value="选择额外专长" onClick="Get_Bonus_Feats()">
+					</td>
+					<td>
+						<input type=button name=bonus_feat_help value="额外专长帮助" onClick="Bonus_Feat_Help()">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type=button name=select_equipment value="选择道具" onClick="Get_Equipment()">
+					</td>
+					<td>
+						<input type=button name=equipment_help value="道具帮助" onClick="Equipment_Help()">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type=button name=equip_character value="装备角色" onClick="Equip_Char()">
+					</td>
+					<td>
+						<input type=button name=equip_help value="装备帮助" onClick="Equip_Help()">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type=button name=select_languages value="选择语言" onClick="Get_Languages()">
+					</td>
+					<td>
+						<input type=button name=language_help value="语言帮助" onClick="Language_Help()">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type=button name=select_spells value="选择法术" onClick="Get_Spells()">
+					</td>
+					<td>
+						<input type=button name=spell_help value="法术帮助" onClick="Spell_Help()">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type=button name=notes value="额外备注" onClick="Display_Notes()">
+					</td>
+					<td>
+						<input type=button name=notes_help value="备注帮助" onClick="Notes_Help()" </td>
+				</tr>
+
+				<tr>
+					<td>
+						<br><br>
+					</td>
+				</tr>
+
+				<tr>
+					<td></td>
+					<td>
+						<input type=button name=display_character value="显示角色" onClick="Display_Character()">
+					</td>
+					<td>
+						<input type=button name=display_character_help value="显示帮助" onClick="Display_Help()">
+					</td>
+				</tr>
+
+				<tr>
+					<td><br></td>
+				</tr>
+
+				<tr>
+					<td>
+						<input type=button value="保存角色" onClick="Save_Character()">
+					</td>
+					<td>
+						<input type=button value="载入角色" onClick="Display_Load_Character()">
+					</td>
+					<td>
+						<input type=button value="保存/载入帮助" onClick="Save_Load_Help()">
+					</td>
+				</tr>
+
+				<tr>
+					<td></td>
+					<td>
+						<input type=button value="升级" onClick="Display_Level_Up()">
+					</td>
+					<td>
+						<input type=button value="升级帮助" onClick="Level_Up_Help()">
+					</td>
+				</tr>
 
 
-   <center>
-   <br><br><br>
-   <font size=-1>
-   Written by Jesse Smith<br>
+			</table>
 
-   <form>
-    <input type=button value="About" onClick="Show_About()"><br>
-   </form>
+		</form>
+	</center>
 
-   </font>
-   </center>
+
+	<center>
+		<br><br><br>
+		<font size=-1>
+			Written by Jesse Smith<br>
+
+			<form>
+				<input type=button value="About" onClick="Show_About()"><br>
+			</form>
+
+		</font>
+	</center>
 
 </body>
-</html>
 
+</html>

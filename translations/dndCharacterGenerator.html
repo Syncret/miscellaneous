@@ -2175,9 +2175,26 @@
                 money += cash * class_levels[class_count];
               else
                 money += (cash * 10) * class_levels[class_count];
-
+                
+              if(true) // specify excat money
+              {
+                  switch (class_count)
+                  {
+                    case BARBARIAN: money=100; break;
+                    case BARD: money=100; break;
+                    case CLERIC: money=125; break;
+                    case MONK: money=13; break;
+                    case ROGUE: money=125; break;
+                    case DRUID: money=50; break;
+                    case FIGHTER: money=150; break;
+                    case PALADIN: money=150; break;
+                    case RANGER: money=150; break;
+                    case SORCERER: money=75; break;
+                    case WIZARD: money=75; break;
+                  } 
+              }
            }      // end of have this class 
-        }        // end of for loop
+           }        // end of for loop            
         }        // end of just first level char
 
         else      // second level or higher

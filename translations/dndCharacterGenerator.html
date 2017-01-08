@@ -82,8 +82,7 @@
     }    
   </style>
 	<SCRIPT language="JavaScript">
-    "use strict";
-    var shortStyle="body { background: skyblue; font-family: \"Microsoft Yahei\", \"Trebuchet MS\", Georgia, \"Times New Roman\", Times, sans-serif;color: #444; } input, select { border: none; border-radius: 4px; transition: .15s ease-out; box-shadow: 1px 1px 3px rgba(0,0, 0, 0.2); padding:6px  16px; margin-bottom: 4px; vertical-align: middle; text-align: center; } input:hover, select:hover{ box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); } input[type=button] { color: DarkSlateGray; background-color: Cornsilk; white-space:nowrap; } input[type=button]:hover { background: PaleVioletRed; color: #fff; } input[type=text], select { background: #333;color: #ccc; } input[type=checkbox]{-webkit-transform: scale(1.5);box-shadow:none;} table {border: 3px solid #333; border-radius: 13px; padding: 10px; margin-top: 10px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }";
+    var shortStyle="body { background: skyblue; font-family: \"Microsoft Yahei\", \"Trebuchet MS\", Georgia, \"Times New Roman\", Times, sans-serif;color: #444; } input, select { border: none; border-radius: 4px; transition: .15s ease-out; box-shadow: 1px 1px 3px rgba(0,0, 0, 0.2); padding:6px  16px; margin-bottom: 4px; vertical-align: middle; text-align: center; } input:hover, select:hover{ box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); } input[type=button] { color: DarkSlateGray; background-color: Cornsilk; white-space:nowrap; } input[type=button]:hover { background: PaleVioletRed; color: #fff; } input[type=text], select { background: #333;color: #ccc; } input[type=checkbox]{display:none;}input[type=checkbox]+label:hover{border:3px solid PaleVioletRed;}input[type=checkbox]+label{height:13px;width:13px;transition:.2s ease-out;box-shadow:1px 1px 3px rgba(0,0,0,0.2);display:inline-block;border:3px solid #333;border-radius:13px;}input[type=checkbox]:checked+label{background:#333;} table {border: 3px solid #333; border-radius: 13px; padding: 10px; margin-top: 10px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }";
 
     // this varible contains data passed to new pop-ups
     var min_feature = "scrollbars=yes, menubar=no, status=no, toolbar=no, resizable=yes";
@@ -5430,7 +5429,9 @@
          language_win.document.writeln('<tr>');
          language_win.document.writeln('<td align=right>', language_names[count], ':</td>');
          language_win.document.writeln('<td align=center>');
-         language_win.document.writeln('  <input type=checkbox name="', language_names[count], '" onClick="window.opener.Select_Language(', count, ')">');
+         language_win.document.writeln('  <input type=checkbox name="', language_names[count], '" id="', language_names[count], '" onClick="window.opener.Select_Language(', count, ')">');
+         language_win.document.writeln('  <label for="', language_names[count], '"></label>');
+         
          language_win.document.writeln('</td>');
          language_win.document.writeln('</tr>');
 
@@ -6574,8 +6575,9 @@
            {
              spell_win.document.writeln(' <tr>');
              spell_win.document.writeln('   <td>', bard_spell_name[lvl][index], '</td>');
-             spell_win.document.writeln('   <td><input type=checkbox onClick="window.opener.Select_Bard_Spell(', lvl, ',', index, ')"></td>');
-             spell_win.document.writeln(' </tr>');
+             spell_win.document.writeln('   <td><input type=checkbox id="', bard_spell_name[lvl][index], '" onClick="window.opener.Select_Bard_Spell(', lvl, ',', index, ')">');
+             spell_win.document.writeln('  <label for="', bard_spell_name[lvl][index], '"></label>');
+             spell_win.document.writeln('</td></tr>');
              index++;
            }
         }   // end of for loop
@@ -6604,8 +6606,9 @@
            {
              spell_win.document.writeln(' <tr>');
              spell_win.document.writeln('   <td>', wizard_spell_name[lvl][index], '</td>');
-             spell_win.document.writeln('   <td><input type=checkbox onClick="window.opener.Select_Sorcerer_Spell(', lvl, ', ', index, ')"></td>'); 
-             spell_win.document.writeln(' </tr>');
+             spell_win.document.writeln('   <td><input type=checkbox id="', wizard_spell_name[lvl][index], '" onClick="window.opener.Select_Sorcerer_Spell(', lvl, ', ', index, ')">'); 
+             spell_win.document.writeln('  <label for="', wizard_spell_name[lvl][index], '"></label>');
+             spell_win.document.writeln('</td></tr>');
              index++;
            }
         }   // end of for loop
@@ -6663,8 +6666,9 @@
             spell_win.document.writeln(' <tr>');
             spell_win.document.writeln('   <td>', wizard_spell_name[lvl][index], '</td>');
             spell_win.document.writeln('   <td>', Translate_Spell_Domain(wizard_spell_domain[lvl][index]), '</td>');
-            spell_win.document.writeln('   <td><input type=checkbox onClick="window.opener.Select_Wizard_Spell(', lvl, ', ', index, ')"></td>');
-            spell_win.document.writeln(' </tr>');
+            spell_win.document.writeln('   <td><input type=checkbox id="', wizard_spell_name[lvl][index], '" onClick="window.opener.Select_Wizard_Spell(', lvl, ', ', index, ')">');
+            spell_win.document.writeln('  <label for="', wizard_spell_name[lvl][index], '"></label>');
+            spell_win.document.writeln(' </td></tr>');
             index++;
           }
         }   // end of for loop

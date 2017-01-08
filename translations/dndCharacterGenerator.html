@@ -1,33 +1,4 @@
 <HTML>
-
-<!--
-        This web page was created to help players produce
-        3rd edition D&D characters quickly and easily. It
-        accepts some basic input from the user, then displays
-        a basic character sheet (in HTML). A simple, blank
-        sheet can also be displayed for printing purposes.
-
-	This page has been tested and works with Internet Explorer,
-	Opera, Firefox, Mozilla and Konqueror.
-	This page does not fully function Netscape.
-
-        Please feel free to copy, alter and use
-        this HTML/JavaScript code at will. However I ask
-        that you document and send me any logic
-        changes. Thank you. This generator is licensed under
-        the GNU General Public License (GPL) version 2. 
-        For more information please see 
-        http://www.fsf.org/licenses/gpl.html
-
-        Technical assistance provided by Isaac Sabean.
-	Random name generator provided by David A. Wheeler.
-
-        Version - 5.1
-        Written by Jesse Smith <slicer69@hotmail.com>
-        http://slicer69.tripod.com/
-
--->
-
 <HEAD>
 	<TITLE>3.5 DnD 角色生成器</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -100,15 +71,20 @@
 			border-radius: 13px;
       padding:10px;
       margin-top:10px;
-      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);      
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
     }		
     td:first-child{
       min-width:100px;
-      padding:6px
     }
-	</style>
+    .others_table{
+      text-align:center;
+    }
+
+    
+  </style>
 	<SCRIPT language="JavaScript">
-  <!--
+    var shortStyle="body { background: skyblue; font-family: \"Microsoft Yahei\", \"Trebuchet MS\", Georgia, \"Times New Roman\", Times, sans-serif;color: #444; } input, select { border: none; border-radius: 4px; transition: .15s ease-out; box-shadow: 1px 1px 3px rgba(0,0, 0, 0.2); padding:6px  16px; margin-bottom: 4px; vertical-align: middle; text-align: center; } input:hover, select:hover{ box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5); } input[type=button] { color: DarkSlateGray; background-color: Cornsilk; white-space:nowrap; } input[type=button]:hover { background: PaleVioletRed; color: #fff; } input[type=text], select { background: #333;color: #ccc; } input[type=checkbox]{-webkit-transform: scale(1.5);box-shadow:none;} table {border: 3px solid #333; border-radius: 13px; padding: 10px; margin-top: 10px; box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }";
+
     // this varible contains data passed to new pop-ups
     var min_feature = "scrollbars=yes, menubar=no, status=no, toolbar=no, resizable=yes";
     var display_feature = "scrollbars=yes, menubar=yes, status=no, toolbar=no, resizable=yes";
@@ -1859,21 +1835,9 @@
         New_Win.document.write('</center>');
 
         New_Win.document.close();
+        RenderPage(New_Win);
         New_Win.focus();
     }
-
-
-    // This function loads the FAQ page. The FAQ page should be found
-    // in the current directory.
-    function Show_FAQs()
-    {
-       var New_Win = open('faqs.htm', 'FAQs', min_feature);
-
-       New_Win.document.close();
-       New_Win.focus();
-    }
-
-
 
     // This function takes a string and returns the
     // lower case version (without under scores).
@@ -3250,6 +3214,7 @@
        }
 
        ability_win.document.close();
+       RenderPage(ability_win);
        ability_win.focus();
     }
 
@@ -4129,13 +4094,13 @@
        newwin.document.write('</form>');
        newwin.document.write('</center>');
 
-       newwin.document.close();
+       newwin.document.close();       
        newwin.document.skills.sp1.value = skill_points;
        newwin.document.skills.sp2.value = skill_points;
        newwin.focus();
        skill_window = newwin;
        Display_Skill_Points();
-
+       RenderPage(newwin);
     }
 
 
@@ -4388,6 +4353,7 @@
 
 
         featwin.document.close();
+        RenderPage(featwin);
         featwin.focus();
         Display_Feat_Points();
     }
@@ -4850,7 +4816,7 @@
           case BREW_POTION: t += "施法者等级 3"; break;
           case CLEAVE: t += "猛力攻击 与 13点力量"; break;
           case COMBAT_EXPERTISE: t += "13点智力"; break;
-          case CRAFT_MAGIC_ARMS_AND_ARMOR: "施法者等级 5"; break;
+          case CRAFT_MAGIC_ARMS_AND_ARMOR: t += "施法者等级 5"; break;
           case CRAFT_ROD: t += "施法者等级 9"; break;
           case CRAFT_STAFF: t += "施法者等级 12"; break;
           case CRAFT_WAND: t += "施法者等级 9"; break;
@@ -5374,6 +5340,7 @@
        bonus_feat_win.document.writeln('</form></center>');
 
        bonus_feat_win.document.close();
+       RenderPage(bonus_feat_win);
        bonus_feat_win.focus();
     }
 
@@ -5481,6 +5448,7 @@
        language_win.document.writeln('</center>');
 
        language_win.document.close();
+       RenderPage(language_win);
        language_win.focus();
 
        // Do this in roll abilty scores function
@@ -5900,7 +5868,6 @@
        eq_win.document.writeln('<form name=equipment>');
        eq_win.document.writeln('金钱: <input type=text name=eq1 size=5> ');
        eq_win.document.writeln('<input type=button value="设置金钱为此值" onClick="window.opener.Set_Money()">');
-       eq_win.document.writeln('<br>');
        eq_win.document.writeln('<table>');
        eq_win.document.writeln('<tr>');
        eq_win.document.writeln('<td><b>名字</b></td>');
@@ -5988,6 +5955,7 @@
        }
 
        eq_win.document.close();
+       RenderPage(eq_win);
        eq_win.focus();
     }    // end of get equipment
 
@@ -6150,6 +6118,7 @@
         swapwin.document.swap.charisma.value = charisma;
 
         swapwin.document.close();
+        RenderPage(swapwin);
         swapwin.focus();
     }
 
@@ -6618,7 +6587,7 @@
                      
         if ( class_levels[SORCERER] )
         {                                                                                        
-        spell_win.document.writeln('<br><br>');
+        spell_win.document.writeln('<br>');
 
         spell_win.document.writeln('<form name=sorcerer>');
         spell_win.document.writeln('<table>');
@@ -6647,7 +6616,7 @@
 
         if ( class_levels[WIZARD] )
         {
-        spell_win.document.writeln('<br><br>');
+        spell_win.document.writeln('<br>');
 
         spell_win.document.writeln('<form name=spells>');
         spell_win.document.writeln('<table>');
@@ -6713,6 +6682,7 @@
         if ( class_levels[WIZARD] ) Display_Wizard_Spells();
 
         spell_win.document.close();
+        RenderPage(spell_win);
         spell_win.focus();
     }     // end of Get_Spells()
 
@@ -7751,6 +7721,7 @@
         displaywin.document.writeln('<br><br></td></tr>');
         displaywin.document.writeln('</table>');
         displaywin.document.close();
+        RenderPage(displaywin);
 
     }    // end of display character
 
@@ -7969,6 +7940,7 @@
 
        save_win.document.save.data.value = t;
        save_win.document.close();
+       RenderPage(save_win);
        save_win.focus();
     }   // end of save character
 
@@ -8574,6 +8546,7 @@
         level_up_win.document.writeln('</center>');
 
         level_up_win.document.close();
+        RenderPage(level_up_win);
         level_up_win.focus();
     }
 
@@ -8600,6 +8573,7 @@
        save_win.document.writeln('</form>');
 
        save_win.document.close();
+       RenderPage(save_win);
        save_win.focus();
     }     // end of Display_Load_Character
 
@@ -8629,29 +8603,6 @@
        notes_win.document.writeln('<input type=button value="Cancel" onclick="window.close()">');
        notes_win.document.writeln('</form>');
        notes_win.document.note_form.note.value = game_notes;
-    }
-
-    // Thus begins the help windows. They are in order
-    // of appearance on the main window.
-    // In the case of duplicate help buttins, the first
-    // determines the order.
-    function Display_Help()
-    {
-       newwin = open('', 'Help', min_feature);
-       newwin.document.writeln('<center>');
-       newwin.document.writeln('The Display Empty Sheet button opens ');
-       newwin.document.writeln('a new window with a blank character sheet.');
-       newwin.document.writeln('<br><br>');
-       newwin.document.writeln('The Display Character button also opens a ');
-       newwin.document.writeln('new window with a character sheet. However, ');
-       newwin.document.writeln('the Display Character button fills in the ');
-       newwin.document.writeln('character sheet with your character ');
-       newwin.document.writeln('stats, scores and equipment.<br><br>');
-      
-       newwin.document.writeln('<form>');
-       newwin.document.writeln('<input type=button value="Close" onClick="window.close()">');
-       newwin.document.writeln('</form>');
-       newwin.document.writeln('</center>');
     }
 
     function Name_Help()
@@ -9019,80 +8970,6 @@
         newwin.document.writeln('</center>');
     }
 
-
-    function Save_Load_Help()
-    {
-        newwin = open('', 'Help', min_feature);
-        newwin.document.writeln('<center>');
-        newwin.document.writeln('Since JavaScript does not allow data to be saved directly to ');
-        newwin.document.writeln('the hard drive (for security reasons); this is my work around for ');
-        newwin.document.writeln('saving characters for later use.<br><br>');
-        newwin.document.writeln('Once you have finished creating a character, click on the ');
-        newwin.document.writeln('<b>Save Character</b> button. This will open a new window, with ');
-        newwin.document.writeln('a text box. Your character data will be displayed in the text box. ');
-        newwin.document.writeln('Highlight the text/data with your mouse and copy/paste the data into ');
-        newwin.document.writeln('a text editor. This can be any text editor. Then save the file. ');
-        newwin.document.writeln('<br><br>');
-        newwin.document.writeln('To get your character back, open the text file you previously saved. ');
-        newwin.document.writeln('In the Character Generator, click the <b>Load Character</b> button. ');
-        newwin.document.writeln('Copy/Paste the text/data from the file into the text box in the Load ');
-        newwin.document.writeln('Character window of the character generator. Lastly, click the ');
-        newwin.document.writeln('<b>Load</b> button in the character generator.');
-        newwin.document.writeln('<br><br>');
-        newwin.document.writeln('Please note that your character should be <b>finished</b> before ');
-        newwin.document.writeln('you save your character. You will not be able to add new skills, feats ');
-        newwin.document.writeln('or spells when you re-load.');
-        newwin.document.writeln('<br><br>');
-        newwin.document.writeln('由于JavaScript不允许将数据直接保存到硬盘驱动器（出于安全原因）; 这是我的工作，用于保存字符以供以后使用。完成字符创建后，单击保存字符按钮。 这将打开一个带有文本框的新窗口。 您的字符数据将显示在文本框中。 使用鼠标突出显示文本/数据，然后将数据复制/粘贴到文本编辑器中。 这可以是任何文本编辑器。然后保存文件。要恢复您的角色，请打开先前保存的文本文件。 在字符生成器中，单击加载字符按钮。 将文本中的文本/数据复制/粘贴到字符生成器的加载字符窗口中的文本框中。 最后，单击字符生成器中的加载按钮。请注意，您的角色应该在保存角色之前完成。 重新加载时，您将无法添加新的技能，专长或法术。<br><br>');
-        newwin.document.writeln('<form>');
-        newwin.document.writeln('<input type=button value="Close" onClick="window.close()">');
-        newwin.document.writeln('</form>');
-        newwin.document.writeln('</center>');
-    }
-
-
-    function Level_Up_Help()
-    {
-       newwin = open('', 'Help', min_feature);
-       newwin.document.writeln('<center>');
-       newwin.document.writeln('The Character Generator allows you to save and load your ');
-       newwin.document.writeln('characters. It now also allows you to level up a character ');
-       newwin.document.writeln('that has already been created.');
-       newwin.document.writeln('This allows you to make changes to your character using the ');
-       newwin.document.writeln('frame work already in place.<br><br>');
-       newwin.document.writeln('Click the <b>Level Up</b> button on the main page. This will ');
-       newwin.document.writeln('open a new window. Select the class in which you would like to ');
-       newwin.document.writeln('gain a level. Then click the <b>Level Up</b> button in the ');
-       newwin.document.writeln('new window. Your new skill points, feats, ability points, base ');
-       newwin.document.writeln('attack bonus, hit points and saving throws will be calculated ');
-       newwin.document.writeln('automatically.');
-       newwin.document.writeln('<br><br>');
-       newwin.document.writeln('<form>');
-       newwin.document.writeln('<input type=button value="Close" onClick="window.close()">');
-       newwin.document.writeln('</form>');
-       newwin.document.writeln('</center>');
-    }
-
-
-    function Notes_Help()
-    {
-       newwin = open('', 'Help', min_feature);
-       newwin.document.writeln('<center>');
-       newwin.document.writeln('It is often helpful to keep various notes about the ');
-       newwin.document.writeln('current game world in which your character lives. ');
-       newwin.document.writeln('To help with this, you can click on the <b>Extra Notes</b> ');
-       newwin.document.writeln('button and add any notes you like. These notes will be ');
-       newwin.document.writeln('saved and can be viewed again at any time by clicking on ');
-       newwin.document.writeln('the <b>Extra Notes</b> button again.');
-       newwin.document.writeln('<br><br>');
-       newwin.document.writeln('字符生成器允许您保存和加载字符。 它现在还允许您升级已创建的字符。 这允许您使用已经就位的框架工作更改角色。单击主页上的“升级”按钮。 这将打开一个新窗口。 选择您要获得级别的级别。 然后单击新窗口中的“升级”按钮。 你的新技能点，专长，能力点，基本攻击加值，生命值和豁免检定将自动计算。<br><br>');
-       newwin.document.writeln('<form>');
-       newwin.document.writeln('<input type=button value="Close" onClick="window.close()">');
-       newwin.document.writeln('</form>');
-       newwin.document.writeln('</center>');
-    }
-
-
     function Equip_Help()
     {
        newwin = open('', 'Help', min_feature);
@@ -9232,8 +9109,12 @@ function Get_RandomName()
     document.main.character_name.value = first_name + " " + last_name;
 }
 
-
-  // -->
+function RenderPage(newWin){
+    let newpageStyle = newWin.document.createElement('style');
+    newpageStyle.type="text/css";
+    newpageStyle.innerText=shortStyle;
+    newWin.document.head.appendChild(newpageStyle);
+}
   </script>
 
 </head>
@@ -9883,123 +9764,80 @@ function Get_RandomName()
 				</tr>
 
         </table>
-        <table class="ability_table">
+        <table class="others_table">
 
-				<tr>
-					<td></td>
+				<tr>					
 					<td>
 						<input type=button name=select_skills value="选择技能" onClick="Get_Skills()">
+					</td>					
+          <td>
+						<input type=button name=select_feats value="选择专长" onClick="Get_Feats()">
 					</td>
-					<td align>
-						<input type=button name=skill_help value="技能帮助" onClick="Skill_Help()">
+          <td>
+						<input type=button name=select_bonus_feats value="选择额外专长" onClick="Get_Bonus_Feats()">
 					</td>
+          <td>
+						<input type=button name=select_spells value="选择法术" onClick="Get_Spells()">
+					</td>
+					
+				</tr>
+				<tr>					
 				</tr>
 				<tr>
-					<td></td>
 					<td>
-						<input type=button name=select_feats value="选择专长" onClick="Get_Feats()">
+						<input type=button name=skill_help value="技能帮助" onClick="Skill_Help()">
 					</td>
 					<td>
 						<input type=button name=feat_help value="专长帮助" onClick="Feat_Help()">
 					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td>
-						<input type=button name=select_bonus_feats value="选择额外专长" onClick="Get_Bonus_Feats()">
-					</td>
 					<td>
 						<input type=button name=bonus_feat_help value="额外专长帮助" onClick="Bonus_Feat_Help()">
 					</td>
+          <td>
+						<input type=button name=spell_help value="法术帮助" onClick="Spell_Help()">
+					</td>
 				</tr>
+        <tr><td><br></td></tr>
 				<tr>
-					<td></td>
-					<td>
+          <td>
+						<input type=button name=select_languages value="选择语言" onClick="Get_Languages()">
+					</td>
+          <td>
 						<input type=button name=select_equipment value="选择道具" onClick="Get_Equipment()">
 					</td>
 					<td>
-						<input type=button name=equipment_help value="道具帮助" onClick="Equipment_Help()">
+						<input type=button name=equip_character value="装备角色" onClick="Equip_Char()">
+					</td>
+          <td>
+						<input type=button name=notes value="额外备注" onClick="Display_Notes()">
 					</td>
 				</tr>
 				<tr>
-					<td></td>
 					<td>
-						<input type=button name=equip_character value="装备角色" onClick="Equip_Char()">
+						<input type=button name=language_help value="语言帮助" onClick="Language_Help()">
+					</td>
+          <td>
+						<input type=button name=equipment_help value="道具帮助" onClick="Equipment_Help()">
 					</td>
 					<td>
 						<input type=button name=equip_help value="装备帮助" onClick="Equip_Help()">
 					</td>
 				</tr>
+        <tr><td><br></td></tr>
 				<tr>
-					<td></td>
-					<td>
-						<input type=button name=select_languages value="选择语言" onClick="Get_Languages()">
-					</td>
-					<td>
-						<input type=button name=language_help value="语言帮助" onClick="Language_Help()">
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td>
-						<input type=button name=select_spells value="选择法术" onClick="Get_Spells()">
-					</td>
-					<td>
-						<input type=button name=spell_help value="法术帮助" onClick="Spell_Help()">
-					</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td>
-						<input type=button name=notes value="额外备注" onClick="Display_Notes()">
-					</td>
-					<td>
-						<input type=button name=notes_help value="备注帮助" onClick="Notes_Help()" </td>
-				</tr>
-
-				<tr>
-					<td>
-						<br><br>
-					</td>
-				</tr>
-
-				<tr>
-					<td></td>
 					<td>
 						<input type=button name=display_character value="显示角色" onClick="Display_Character()">
 					</td>
-					<td>
-						<input type=button name=display_character_help value="显示帮助" onClick="Display_Help()">
-					</td>
-				</tr>
-
-				<tr>
-					<td><br></td>
-				</tr>
-
-				<tr>
-					<td>
+          <td>
 						<input type=button value="保存角色" onClick="Save_Character()">
 					</td>
 					<td>
 						<input type=button value="载入角色" onClick="Display_Load_Character()">
 					</td>
 					<td>
-						<input type=button value="保存/载入帮助" onClick="Save_Load_Help()">
-					</td>
-				</tr>
-
-				<tr>
-					<td></td>
-					<td>
 						<input type=button value="升级" onClick="Display_Level_Up()">
 					</td>
-					<td>
-						<input type=button value="升级帮助" onClick="Level_Up_Help()">
-					</td>
 				</tr>
-
-
 			</table>
 
 		</form>

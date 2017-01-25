@@ -1,5 +1,79 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-    display: table;
-    margin: auto;
-}
+		body {
+			background: skyblue;
+			font-family: "Microsoft Yahei", "Trebuchet MS", Georgia, "Times New Roman", Times, sans-serif;
+      color: #444;
+			margin: auto;
+			display: table;
+		}
+		
+		input,
+		select {
+			border: none;
+			border-radius: 4px;
+			transition: .15s ease-out;
+			box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+			padding: 6px 16px;
+			margin-bottom: 4px;
+			vertical-align: middle;
+			text-align: center;
+		}
+		
+		input:hover,
+		select:hover {
+			box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+		}
+		
+		input[type=button] {
+			color: DarkSlateGray;
+			background-color: Cornsilk;
+			white-space: nowrap;
+		}
+		
+		input[type=button]:hover {
+			background: PaleVioletRed;
+			color: #fff;
+		}
+		
+		input[type=text],
+		select {
+			background: #333;
+			color: #ccc;
+		}
+		
+		input[type=checkbox] {
+			display: none;
+		}
+
+    input[type=checkbox] + label:hover {
+      border: 3px solid PaleVioletRed;
+    }
+		
+		input[type=checkbox] + label {
+			height: 13px;
+			width: 13px;
+      transition: .2s ease-out;
+			box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+			display: inline-block;
+			border: 3px solid #333;
+			border-radius: 13px;
+		}
+		
+		input[type=checkbox]:checked + label {
+			background: #333;
+		}
+
+    table{
+      width:600px;
+      border: 3px solid #333;
+			border-radius: 13px;
+      padding:10px;
+      margin-top:10px;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }		
+    td:first-child{
+      min-width:100px;
+    }
+    .others_table{
+      text-align:center;
+    }    

@@ -5,6 +5,7 @@ import {Character} from './character';
 @Injectable()
 export class CharacterService extends Character{
     constructor(){
+        super();
     }
 
 }

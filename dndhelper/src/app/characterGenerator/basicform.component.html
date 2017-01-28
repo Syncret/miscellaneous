@@ -1,9 +1,48 @@
-
-<form>
-    <span>名字</span><input [(ngModel)]='character.name' type="text" name="name" required/>
-    <span>种族</span><input type="text" name="race" required/>
-    <span>职业</span><input type="text" name="class" required/>
-    <span>阵营</span><input type="text" name="alignment" required/>
-    <span>信仰</span><input type="text" name="religion" required/>
-</form>
-<span>{{character|json}}</span>
+<div class="jumbotron tiny">
+    <div class="container">
+        <h3 class=""> 人物卡 </h3>
+    </div>
+</div>
+<div class="container">
+    <form class="form-horizontal">
+        <div class="form-group row">
+            <label class="col-1 col-form-label" for="basicform-name">名字</label>
+            <div class="col-3">
+                <input class="form-control" [(ngModel)]='character.name' type="text" name="name" id="basicform-name" placeholder="Name" required/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-1 col-form-label" for="basicform-race">种族</label>
+            <div class="col-3">
+                <select [(ngModel)]='character.race' class="form-control" id="basicform-race" type="text" name="race" required>
+                    <option *ngFor="let option of raceOptions" >{{option}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-1 col-form-label" for="basicform-class">职业</label>
+            <div class="col-3">
+                <select [(ngModel)]='character.class' class="form-control" type="text" id="basicform-class" name="class" required>
+                    <option *ngFor="let option of classOptions" >{{option}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-1 col-form-label" for="basicform-alignment">阵营</label>
+            <div class="col-3">
+                <select [(ngModel)]='character.alignment' class="form-control" type="text" id="basicform-alignment" name="class" required>
+                    <option *ngFor="let option of alignmentOptions" >{{option}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-1 col-form-label" for="basicform-religion">信仰</label>
+            <div class="col-3">
+                <select [(ngModel)]='character.religion' class="form-control" type="text" id="basicform-religion" name="class" required>
+                    <option *ngFor="let option of religionOptions" >{{option}}</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    <span>{{character|json}}</span>
+</div>

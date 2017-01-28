@@ -6,6 +6,7 @@ import { GithubService } from './github/shared/github.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CharacterService } from './characterGenerator/character.service';
 
 import { AboutComponent } from './about/about.component';
@@ -34,7 +35,8 @@ import { BasicformComponent } from './characterGenerator/basicform.component'
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(rootRouterConfig, { useHash: true })
+    RouterModule.forRoot(rootRouterConfig, { useHash: true }),
+    NgbModule.forRoot()
   ],
   providers: [
     GithubService,

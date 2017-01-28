@@ -1,33 +1,15 @@
-<h3>
-  Dnd Helper
-</h3>
-<nav>
-	<a [routerLink]="['/home']">
-    Home
-  </a>
-  |
-	<a [routerLink]="['/charaGenerator']">
-    人物卡生成
-  </a>
-  |
-	<a [routerLink]="['/about']">
-    About
-  </a>
-  |
-	<a [routerLink]="['/github', 'angular']">
-    Github Repos
-  </a>
-  |
-	<a [routerLink]="['/contact']">
-    Contact Us
-  </a>
+<div class="container">
+<nav class="navbar navbar-toggleable-sm nav-pills">
+  <div class="navbar-nav">
+	<a class="navbar-brand nav-link" [routerLink]="['/home']" routerLinkActive="active"> Helper </a>
+	<a class="nav-link" [routerLink]="['/charaGenerator']" routerLinkActive="active"> 人物卡 </a>
+	<a class="nav-link" [routerLink]="['/about']" routerLinkActive="active"> About </a>
+	<a class="nav-link" [routerLink]="['/github', 'angular']" routerLinkActive="active"> Github Repos </a>
+	<a class="nav-link" [routerLink]="['/contact']" routerLinkActive="active"> Contact Us </a>
+  </div>
 </nav>
+</div>
 
 <main>
 	<router-outlet></router-outlet>
 </main>
-
-
-<footer>
-  © 2016
-</footer>

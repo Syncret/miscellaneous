@@ -4,4 +4,5 @@ export class Character{
     initialClass:string;
     alignment:string;
     religion;string;
+    otherReligion:string;
 }

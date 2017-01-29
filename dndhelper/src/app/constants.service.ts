@@ -1,5 +1,8 @@
-export module Constants {
-    export var Race = {
+import { Injectable }    from '@angular/core';
+
+@Injectable()
+export class ConstantsService {
+    Race = {
         HUMAN: "人类",
         ELF: "精灵",
         DWARF: "矮人",
@@ -8,9 +11,9 @@ export module Constants {
         HALFORC: "半兽人",
         GNOME: "侏儒"
     };
-    export var Races=[Race.HUMAN,Race.ELF,Race.DWARF,Race.HALFLING,Race.HALFELF,Race.HALFORC,Race.GNOME];
+    Races=[this.Race.HUMAN,this.Race.ELF,this.Race.DWARF,this.Race.HALFLING,this.Race.HALFELF,this.Race.HALFORC,this.Race.GNOME];
 
-    export var Class = {
+    Class = {
         BARBARIAN: "野蛮人",
         BARD: "吟游诗人",
         CLERIC: "牧师",
@@ -23,9 +26,9 @@ export module Constants {
         SORCERER: "术士",
         WIZARD: "法师",
     };
-    export var Classes=[Class.BARBARIAN,Class.BARD,Class.CLERIC,Class.DRUID,Class.FIGHTER,Class.MONK,Class.PALADIN,Class.RANGER,Class.ROGUE,Class.SORCERER,Class.WIZARD]
+    Classes=[this.Class.BARBARIAN,this.Class.BARD,this.Class.CLERIC,this.Class.DRUID,this.Class.FIGHTER,this.Class.MONK,this.Class.PALADIN,this.Class.RANGER,this.Class.ROGUE,this.Class.SORCERER,this.Class.WIZARD]
 
-    export var Alignment = {
+    Alignment = {
         LAWFUL_GOOD: "守序善良",
         NEUTRAL_GOOD: "中立善良",
         CHAOTIC_GOOD: "混乱善良",
@@ -36,10 +39,10 @@ export module Constants {
         NEUTRAL_EVIL: "中立邪恶",
         CHAOTIC_EVIL: "混乱邪恶",
     };
-    export var Alignments=[Alignment.LAWFUL_GOOD,Alignment.NEUTRAL_GOOD,Alignment.CHAOTIC_GOOD,Alignment.LAWFUL_NEUTRAL,Alignment.TRUE_NEUTRAL,
-    Alignment.CHAOTIC_NEUTRAL,Alignment.LAWFUL_EVIL,Alignment.NEUTRAL_EVIL,Alignment.CHAOTIC_EVIL];
+    Alignments=[this.Alignment.LAWFUL_GOOD,this.Alignment.NEUTRAL_GOOD,this.Alignment.CHAOTIC_GOOD,this.Alignment.LAWFUL_NEUTRAL,this.Alignment.TRUE_NEUTRAL,
+    this.Alignment.CHAOTIC_NEUTRAL,this.Alignment.LAWFUL_EVIL,this.Alignment.NEUTRAL_EVIL,this.Alignment.CHAOTIC_EVIL];
 
-    export var Religion = {
+    Religion = {
         NONE: "无",
         BACCOB: "博卡布",
         CORELLON_LARENTHIAN: "柯瑞隆‧拉瑞斯安",
@@ -63,12 +66,12 @@ export module Constants {
         OTHER_GOD: "其他",
     };
 
-    export var Religions = [Religion.NONE, Religion.BACCOB, Religion.CORELLON_LARENTHIAN, Religion.EHLONNA, Religion.ERYTNUL, Religion.FARLANGHN,
-    Religion.GARL_GLITTERGOLD, Religion.GRUUMSH, Religion.HEIRONEOUS, Religion.HEXTOR, Religion.KORD, Religion.MORADIN, Religion.NERULL,
-    Religion.OBAD_HAI, Religion.OLIDAMMARA, Religion.PELOR, Religion.ST_CUTHBERT, Religion.VECNA, Religion.WEE_JAS, Religion.YONDALLA,
-    Religion.OTHER_GOD];
+    Religions = [this.Religion.NONE, this.Religion.BACCOB, this.Religion.CORELLON_LARENTHIAN, this.Religion.EHLONNA, this.Religion.ERYTNUL, this.Religion.FARLANGHN,
+    this.Religion.GARL_GLITTERGOLD, this.Religion.GRUUMSH, this.Religion.HEIRONEOUS, this.Religion.HEXTOR, this.Religion.KORD, this.Religion.MORADIN, this.Religion.NERULL,
+    this.Religion.OBAD_HAI, this.Religion.OLIDAMMARA, this.Religion.PELOR, this.Religion.ST_CUTHBERT, this.Religion.VECNA, this.Religion.WEE_JAS, this.Religion.YONDALLA,
+    this.Religion.OTHER_GOD];
 
-    export var ReligionAlignment = {
+    ReligionAlignment = {
         NONE: "无",
         BACCOB: "魔法之神(绝对中立)",
         CORELLON_LARENTHIAN: "精灵之神(混乱善良)",
@@ -91,8 +94,8 @@ export module Constants {
         YONDALLA: "半身人女神(守序善良)",
         OTHER_GOD: "其他",
     };
-    export var ReligionAlignments = [ReligionAlignment.NONE, ReligionAlignment.BACCOB, ReligionAlignment.CORELLON_LARENTHIAN, ReligionAlignment.EHLONNA, ReligionAlignment.ERYTNUL, ReligionAlignment.FARLANGHN,
-    ReligionAlignment.GARL_GLITTERGOLD, ReligionAlignment.GRUUMSH, ReligionAlignment.HEIRONEOUS, ReligionAlignment.HEXTOR, ReligionAlignment.KORD, ReligionAlignment.MORADIN, ReligionAlignment.NERULL,
-    ReligionAlignment.OBAD_HAI, ReligionAlignment.OLIDAMMARA, ReligionAlignment.PELOR, ReligionAlignment.ST_CUTHBERT, ReligionAlignment.VECNA, ReligionAlignment.WEE_JAS, ReligionAlignment.YONDALLA,
-    ReligionAlignment.OTHER_GOD];
+    ReligionAlignments = [this.ReligionAlignment.NONE, this.ReligionAlignment.BACCOB, this.ReligionAlignment.CORELLON_LARENTHIAN, this.ReligionAlignment.EHLONNA, this.ReligionAlignment.ERYTNUL, this.ReligionAlignment.FARLANGHN,
+    this.ReligionAlignment.GARL_GLITTERGOLD, this.ReligionAlignment.GRUUMSH, this.ReligionAlignment.HEIRONEOUS, this.ReligionAlignment.HEXTOR, this.ReligionAlignment.KORD, this.ReligionAlignment.MORADIN, this.ReligionAlignment.NERULL,
+    this.ReligionAlignment.OBAD_HAI, this.ReligionAlignment.OLIDAMMARA, this.ReligionAlignment.PELOR, this.ReligionAlignment.ST_CUTHBERT, this.ReligionAlignment.VECNA, this.ReligionAlignment.WEE_JAS, this.ReligionAlignment.YONDALLA,
+    this.ReligionAlignment.OTHER_GOD];
 }

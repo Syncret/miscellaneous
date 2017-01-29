@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CharacterService } from './characterGenerator/character.service';
+import { ConstantsService } from './constants.service';
 
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
@@ -40,7 +41,8 @@ import { BasicformComponent } from './characterGenerator/basicform.component'
   ],
   providers: [
     GithubService,
-    CharacterService
+    CharacterService,
+    ConstantsService
 
   ],
   bootstrap: [ AppComponent ]

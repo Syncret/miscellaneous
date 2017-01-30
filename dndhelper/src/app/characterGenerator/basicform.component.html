@@ -9,46 +9,46 @@
         <div class="card-block">
             <form class="form-horizontal">
                 <div class="form-group row">
-                    <label class="col-1 col-form-label" for="basicform-name">名字</label>
-                    <div class="col-3">
+                    <label class="col-2 col-form-label" for="basicform-name">名字</label>
+                    <div class="col-10">
                         <input class="form-control" [(ngModel)]='character.name' type="text" name="name" id="basicform-name" placeholder="Name" required/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-1 col-form-label" for="basicform-race">种族</label>
-                    <div class="col-3">
+                    <label class="col-2 col-form-label" for="basicform-race">种族</label>
+                    <div class="col-10">
                         <select [(ngModel)]='character.race' class="form-control" id="basicform-race" type="text" name="race" required>
                     <option *ngFor="let option of constants.Races" >{{option}}</option>
                 </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-1 col-form-label" for="basicform-class">职业</label>
-                    <div class="col-3">
+                    <label class="col-2 col-form-label" for="basicform-class">职业</label>
+                    <div class="col-10">
                         <select [(ngModel)]='character.class' class="form-control" type="text" id="basicform-class" name="class" required>
                     <option *ngFor="let option of constants.Classes" >{{option}}</option>
                 </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-1 col-form-label" for="basicform-alignment">阵营</label>
-                    <div class="col-3">
+                    <label class="col-2 col-form-label" for="basicform-alignment">阵营</label>
+                    <div class="col-10">
                         <select [(ngModel)]='character.alignment' class="form-control" type="text" id="basicform-alignment" name="class" required>
                     <option *ngFor="let option of constants.Alignments" >{{option}}</option>
                 </select>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-1 col-form-label" for="basicform-religion">信仰</label>
-                    <div class="col-3">
+                    <label class="col-2 col-form-label" for="basicform-religion">信仰</label>
+                    <div class="col-10">
                         <select [(ngModel)]='character.religion' class="form-control" type="text" id="basicform-religion" name="class" required>
                     <option *ngFor="let option of constants.Religions; let i=index" value={{option}}>{{option}} -- {{constants.ReligionAlignments[i]}}</option>
                 </select>
                     </div>
                 </div>
                 <div *ngIf="character.religion===constants.Religion.OTHER_GOD" class="form-group row">
-                    <label class="col-1 col-form-label" for="basicform-otherReligion"> </label>
-                    <div class="col-3">
+                    <label class="col-2 col-form-label" for="basicform-otherReligion"> </label>
+                    <div class="col-10">
                         <input class="form-control" [(ngModel)]='character.otherReligion'
                             type="text" name="otherReligion" id="basicform-otherReligion" placeholder="请在此填写你的信仰" required/>
                     </div>

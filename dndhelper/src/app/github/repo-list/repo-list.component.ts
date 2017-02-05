@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
+  moduleId: module.id,
   selector: 'repo-list',
   styleUrls: ['./repo-list.component.css'],
   templateUrl: './repo-list.component.html',

@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {GithubService} from '../shared/github.service';
 
 @Component({
+  moduleId: module.id,
   selector: 'repo-detail',
   styleUrls: ['./repo-detail.component.css'],
   templateUrl: './repo-detail.component.html'

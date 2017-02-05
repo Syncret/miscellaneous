@@ -4,7 +4,7 @@ import { CharacterService } from './character.service';
 import { ConstantsService } from '../constants.service';
 
 @Component({
-    // moduleId: module.id, //webpack don't need this
+    moduleId: module.id,
     selector: 'character-basicform',
     templateUrl: 'basicform.component.html'
 })

@@ -4,7 +4,6 @@ $info:#5bc0de;
 $warning:#f0ad4e;
 $danger:#d9534f;
 
-
 .jumbotron{
     background-color: DarkMagenta;
     color: Bisque;
@@ -16,14 +15,22 @@ $danger:#d9534f;
     }
 }
 
+
 .card{
-    &.blue{
-        border-color:$primary;
-        .card-header{
-            background-color: $primary;
-            a {
-                color:white;
+    .card-header a{
+        color:white;
+    }
+    @mixin card-color($name, $color) {
+        &.#{$name}{
+            border-color:$color;
+            .card-header{
+                background-color: $color;
             }
         }
     }
+    @include card-color('primary',$primary);
+    @include card-color('success',$success);
+    @include card-color('info',$info);
+    @include card-color('warning',$warning);
+    @include card-color('danger',$danger);
 }

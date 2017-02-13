@@ -20,4 +20,19 @@ export class Character{
     get strengthModifier(){
         return this.calcModifier(this.strength);
     }
+    get dexterityModifier(){
+        return this.calcModifier(this.dexterity);
+    }
+    get constitutionModifier(){
+        return this.calcModifier(this.constitution);
+    }
+    get intelligenceModifier(){
+        return this.calcModifier(this.intelligence);
+    }
+    get wisdomModifier(){
+        return this.calcModifier(this.wisdom);
+    }
+    get charismaModifier(){
+        return this.calcModifier(this.charisma);
+    }
 }

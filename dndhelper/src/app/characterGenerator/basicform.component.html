@@ -57,7 +57,7 @@
 <br>
 
 <!--ability form-->
-<div class="container">
+<div class="container ability">
     <div class="card success">
         <div class="card-header">
             <a href="#" (click)="abilityformCollapsed = !abilityformCollapsed" [attr.aria-expanded]="!abilityformCollapsed" aria-controls="abilityform-collapse">人物属性</a>
@@ -67,22 +67,69 @@
                 <div class="col-6 text-center">
                     <form class="form-horizontal">
                         <div class="form-group row">
-                            <div class="col-3">属性</div>
-                            <div class="col-6">值</div>
-                            <div class="col-3">补正值</div>
+                            <div class="col-4">属性</div>
+                            <div class="col-4">值</div>
+                            <div class="col-4">补正值</div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-3">力量</div>
-                            <div class="col-6">
+                            <div class="col-4">力量</div>
+                            <div class="col-4">
                                 <input class="form-control" [(ngModel)]='character.strength' type="number" name="strength" id="abilityform-strength" min="0" max="99"/>
                             </div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 {{character.strengthModifier}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">敏捷</div>
+                            <div class="col-4">
+                                <input class="form-control" [(ngModel)]='character.dexterity' type="number" name="dexterity" id="abilityform-dexterity" min="0" max="99"/>
+                            </div>
+                            <div class="col-4">
+                                {{character.dexterityModifier}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">体质</div>
+                            <div class="col-4">
+                                <input class="form-control" [(ngModel)]='character.constitution' type="number" name="constitution" id="abilityform-constitution" min="0" max="99"/>
+                            </div>
+                            <div class="col-4">
+                                {{character.constitutionModifier}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">智力</div>
+                            <div class="col-4">
+                                <input class="form-control" [(ngModel)]='character.intelligence' type="number" name="intelligence" id="abilityform-intelligence" min="0" max="99"/>
+                            </div>
+                            <div class="col-4">
+                                {{character.intelligenceModifier}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">感知</div>
+                            <div class="col-4">
+                                <input class="form-control" [(ngModel)]='character.wisdom' type="number" name="wisdom" id="abilityform-wisdom" min="0" max="99"/>
+                            </div>
+                            <div class="col-4">
+                                {{character.wisdomModifier}}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-4">魅力</div>
+                            <div class="col-4">
+                                <input class="form-control" [(ngModel)]='character.charisma' type="number" name="charisma" id="abilityform-charisma" min="0" max="99"/>
+                            </div>
+                            <div class="col-4">
+                                {{character.charismaModifier}}
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="col-6">
+                    <div class="row">
+                    </div>
                 </div>
             </div>
         </div>

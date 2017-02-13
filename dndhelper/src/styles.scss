@@ -3,6 +3,7 @@ $success:#5cb85c;
 $info:#5bc0de;
 $warning:#f0ad4e;
 $danger:#d9534f;
+$pink:#f169b4;
 
 .jumbotron{
     background-color: DarkMagenta;
@@ -33,4 +34,10 @@ $danger:#d9534f;
     @include card-color('info',$info);
     @include card-color('warning',$warning);
     @include card-color('danger',$danger);
+}
+
+.ability{
+    input{
+        text-align:center;
+    }
 }

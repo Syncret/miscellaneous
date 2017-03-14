@@ -36,6 +36,6 @@ module.exports = {
     devServer: {
         contentBase: __dirname,
         inline: true,
-        port: 3000
+        port: 4444
     }
 };

@@ -15,6 +15,12 @@
 *.launch
 .settings/
 
+#IDE - VS
+.vs/
+/Backup
+/bin
+/obj
+
 # IDE - VSCode
 .vscode/
 !.vscode/settings.json

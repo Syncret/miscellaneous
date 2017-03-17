@@ -20,8 +20,9 @@ export const VisibilityFilters = {
  * action creators
  */
 
+let nexttodo=0;
 export function addTodo(text: string) {
-  return { type: ADD_TODO, text }
+    return { type: ADD_TODO, text, id: nexttodo++ }
 }
 
 export function toggleTodo(index: number) {
@@ -30,4 +31,21 @@ export function toggleTodo(index: number) {
 
 export function setVisibilityFilter(filter: any) {
   return { type: SET_VISIBILITY_FILTER, filter }
+}
+
+export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
+
+export function selectSubreddit(subreddit:any) {
+  return {
+    type: SELECT_SUBREDDIT,
+    subreddit
+  }
+}
+export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
+
+export function invalidateSubreddit(subreddit:any) {
+  return {
+    type: INVALIDATE_SUBREDDIT,
+    subreddit
+  }
 }

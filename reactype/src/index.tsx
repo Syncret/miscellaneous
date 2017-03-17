@@ -1,10 +1,16 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
-import { Hello } from "./components/Hello";
-import { store, test } from "./store/store";
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import { Router, Route, browserHistory } from 'react-router';
+import todoApp from './todos/store/reducers'
+import App from './todos/components/App'
 
-ReactDOM.render(
-    <Hello compiler="TypeScript" framework="React" />,
-    document.getElementById("example")
-);
-test();
+let store = createStore(todoApp)
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+)

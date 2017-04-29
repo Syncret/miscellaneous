@@ -59,11 +59,14 @@
 		},
 		"texts": {
 			"name": "entity.name.function",
-			"begin": "\\[mess on=1[^\\]]*\\]",
+			"begin": "\\[mess on=1(?: name=([^\\s・]*))?[^\\]]*\\]",
 			"end": "\\[p2\\]",
 			"captures": {
 				"0": {
 					"name": "meta.diff.header"
+				},
+				"1":{
+					"name": "keyword.control.ks"
 				}
 			},
 			"patterns": [

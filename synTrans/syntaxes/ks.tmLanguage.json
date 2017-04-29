@@ -1,0 +1,95 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "kscript",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"name": "markup.inserted",
+			"match": "^\\*.*$"
+		},
+		{
+			"include": "#texts"
+		},
+		{
+			"include": "#controls"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.ks",
+					"match": "\\b(if|while|for|return)\\b"
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.ks",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.ks",
+					"match": "\\\\."
+				}
+			]
+		},
+		"controls": {
+			"begin": "\\[",
+			"end": "\\]",
+			"name": "meta.diff.header",
+			"patterns": []
+		},
+		"comments": {
+			"name": "comment.line",
+			"match": "^;.*$",
+			"patterns": [
+				{
+					"include": "#controls"
+				}
+			]
+		},
+		"texts": {
+			"name": "entity.name.function",
+			"begin": "\\[mess on=1[^\\]]*\\]",
+			"end": "\\[p2\\]",
+			"captures": {
+				"0": {
+					"name": "meta.diff.header"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#dialogs"
+				},
+				{
+					"include": "#controls"
+				}
+			]
+		},
+		"dialogs": {
+			"name": "string.quoted.double.ks",
+			"begin": "(「)",
+			"end": "(」)",
+			"captures": {
+				"0": {
+					"name": "keyword.control.ks"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#controls"
+				}
+			]
+		}
+	},
+	"scopeName": "text.ks"
+}

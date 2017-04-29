@@ -1,0 +1,26 @@
+{
+    "name": "syntrans",
+    "displayName": "synTrans",
+    "description": "my test vscode extension",
+    "version": "0.0.1",
+    "publisher": "Syncret",
+    "engines": {
+        "vscode": "^1.11.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "ks",
+            "aliases": ["kscript", "ks"],
+            "extensions": [".ks"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "ks",
+            "scopeName": "text.ks",
+            "path": "./syntaxes/ks.tmLanguage.json"
+        }]
+    }
+}

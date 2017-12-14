@@ -789,8 +789,8 @@
     // levels in each class (there are 11 classes)
     var class_levels = new Array(1,0,0,0,0,0,0,0,0,0,0);
 
-    var alignment = LAWFUL_GOOD;
-    var alignment_name = "守序善良";
+    var alignment = TRUE_NEUTRAL;
+    var alignment_name = "绝对中立";
     var alignment_conflict;
 
     var religion = NONE;
@@ -2287,13 +2287,13 @@
 
        switch (race)
        {
-          case HUMAN: race_name = "Human"; break;
-          case ELF: race_name = "Elf"; break;
-          case DWARF: race_name = "Dwarf"; break;
-          case HALFLING: race_name = "Halfling"; break;
-          case HALF_ELF: race_name = "Half Elf"; break;
-          case HALF_ORC: race_name = "Half Orc"; break;
-          case GNOME: race_name = "Gnome"; break;
+          case HUMAN: race_name = "人类"; break;
+          case ELF: race_name = "精灵"; break;
+          case DWARF: race_name = "矮人"; break;
+          case HALFLING: race_name = "半身人"; break;
+          case HALF_ELF: race_name = "半精灵"; break;
+          case HALF_ORC: race_name = "半兽人"; break;
+          case GNOME: race_name = "侏儒"; break;
        }     // switch race
 
        Clear_Ability_Scores();
@@ -4716,7 +4716,7 @@
               break;
 
           case SPIRITED_CHARGE:
-               if ( (skill[RIDE] < 1) || (feats[MOUNTED_COMBAT] < 1) ||
+               if ( (skills[RIDE] < 1) || (feats[MOUNTED_COMBAT] < 1) ||
                     (feats[RIDE_BY_ATTACK] < 1) )
                   ok = false;
                break;
@@ -6985,6 +6985,7 @@
         }
         armour_bonus = 0;
 
+        RenderPage(equip_win);
     }
 
 
@@ -8249,13 +8250,13 @@
         // make sure race is correct on character sheet'
         switch (race)
         {
-           case HUMAN: race_name = "Human"; break;
-           case ELF: race_name = "Elf"; break;
-           case DWARF: race_name = "Dwarf"; break;
-           case HALFLING: race_name = "Halfling"; break;
-           case HALF_ELF: race_name = "Half Elf"; break;
-           case HALF_ORC: race_name = "Half Orc"; break;
-           case GNOME: race_name = "Gnome"; break;
+           case HUMAN: race_name = "人类"; break;
+           case ELF: race_name = "精灵"; break;
+           case DWARF: race_name = "矮人"; break;
+           case HALFLING: race_name = "半身人"; break;
+           case HALF_ELF: race_name = "半精灵"; break;
+           case HALF_ORC: race_name = "半兽人"; break;
+           case GNOME: race_name = "侏儒"; break;
         }     // switch race
 
 

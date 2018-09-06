@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div style="margin:5px" v-for="(item, index) in lists.filter(item=>!item.checked)">
+            <input type="checkbox" v-model="item.checked"></input>
+            <input type="text" v-model="item.text"></input>
+            <button @click.prevent='removeItem(item)'>删除</button>
+        </div>
+        <button @click.prevent='addItem'>增加</button>
+        <button @click.prevent='save'>保存</button>
+        <input type="checkbox" v-if="lists.every(item=>item.checked)" checked="true"></input>
+        <div style="margin:5px" v-for="(item, index) in lists.filter(item=>item.checked)">
+            <input type="checkbox" v-model="item.checked"></input>
+            <input type="text" v-model="item.text"></input>
+            <button @click.prevent='removeItem(item)'>删除</button>
+        </div>
+    </div>
+
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                lists: [],
+                newItem: '',
+            },
+            methods: {
+                addItem: function () {
+                    this.lists.push({
+                        checked: false,
+                        text: ''
+                    })
+                },
+                removeItem: function (item) {
+                    let index=this.lists.indexOf(item);
+                    if (item.checked == false) {
+                        this.lists.splice(index, 1);
+                    }
+                },
+                save: function () {
+                    localStorage['list'] = JSON.stringify(this.lists);
+                }
+            }
+        });
+        let list = localStorage['list'];
+        if (list) {
+            app.lists = JSON.parse(list);
+        }
+    </script>
+</body>
+<html>

@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <v-app>
+            <div style="display:flex; align-items:center; flex-direction:column; margin-top:10px">
+                <h1>QAQ</h1>
+                <div style="display:flex; width: 500px" v-for="(item, index) in lists">
+                    <v-checkbox style="flex:0;" type="checkbox" v-model="item.checked"></v-checkbox>
+                    <v-text-field type="text" v-model="item.text"></v-text-field>
+                    <v-btn @click.prevent='removeItem(index)'>删除</v-btn>
+                </div>
+                <div style="display:flex; justify-content: space-evenly; width:400px">
+                    <v-btn @click.prevent='addItem'>增加</v-btn>
+                    <v-btn @click.prevent='save'>保存</v-btn>
+                </div>
+                <v-checkbox v-if="lists.every(item=>item.checked)" input-value="true"></v-checkbox>
+            </div>
+        </v-app>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: { lists: [] },
+            methods: {
+                addItem: function () { this.lists.push({ checked: false, text: '' }) },
+                removeItem: function (index) { this.lists.splice(index, 1); },
+                save: function () { localStorage['list'] = JSON.stringify(this.lists); }
+            }
+        });
+        let list = localStorage['list'];
+        if (list) { app.lists = JSON.parse(list); }
+    </script>
+</body>
+<html>

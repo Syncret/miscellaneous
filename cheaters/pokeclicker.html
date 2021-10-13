@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <style>
+        body {
+            margin: 20px;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .mr-10 {
+            margin-right: 10px;
+        }
+
+        .mt-10 {
+            margin-top: 10px;
+        }
+
+        .line-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 10px 0 10px 0;
+        }
+
+        .cell-container {
+            margin-right: 10px;
+        }
+
+        .cell-container>input {
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="line-container">
+        <div class="mr-10">选择存档文件</div>
+        <input id="savefileinput" type="file" accept=".txt" />
+    </div>
+    <div class="line-container">
+        <div class="cell-container">
+            <div class="mr-10">货币0</div>
+            <input class="mr-10" id="coin0-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">货币1</div>
+            <input class="mr-10" id="coin1-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">货币2</div>
+            <input class="mr-10" id="coin2-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">货币3</div>
+            <input class="mr-10" id="coin3-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">货币4</div>
+            <input class="mr-10" id="coin4-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">货币5</div>
+            <input class="mr-10" id="coin5-input" type="number" />
+        </div>
+    </div>
+    <div class="line-container">
+        <div class="cell-container">
+            <div class="mr-10">精灵球0</div>
+            <input class="mr-10" id="pokeball0-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">精灵球1</div>
+            <input class="mr-10" id="pokeball1-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">精灵球2</div>
+            <input class="mr-10" id="pokeball2-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">精灵球3</div>
+            <input class="mr-10" id="pokeball3-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">精灵球4</div>
+            <input class="mr-10" id="pokeball4-input" type="number" />
+        </div>
+        <div class="cell-container">
+            <div class="mr-10">精灵球5</div>
+            <input class="mr-10" id="pokeball5-input" type="number" />
+        </div>
+    </div>
+    <div class="line-container">
+        <button class="line-container" id="output-button">保存修改后的存档</button>
+    </div>
+    <script>
+        let data = undefined;
+        let filename = "save.txt";
+        const currenciesCount = 5;
+        const pokeballCount = 5;
+        function updateData() {
+            if (data == null) { return; }
+            for (let i = 0; i <= currenciesCount; i++) {
+                document.getElementById(`coin${i}-input`).value = data.save.wallet.currencies[i];
+            }
+            for (let i = 0; i <= pokeballCount; i++) {
+                document.getElementById(`pokeball${i}-input`).value = data.save.pokeballs.pokeballs[i];
+            }
+        }
+        document.getElementById(`output-button`).onclick = () => {
+            if (data == null) { alert("请先导入存档") }
+            // currencies
+            for (let i = 0; i <= currenciesCount; i++) {
+                data.save.wallet.currencies[i] = Number(document.getElementById(`coin${i}-input`).value);
+            }
+            // balls
+            for (let i = 0; i <= pokeballCount; i++) {
+                data.save.pokeballs.pokeballs[i] = Number(document.getElementById(`pokeball${i}-input`).value);
+            }
+
+            let output = btoa(JSON.stringify(data));
+            var download = document.createElement('a');
+            download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(output));
+            download.setAttribute('download', filename);
+            download.style.display = 'none';
+            document.body.appendChild(download);
+            download.click();
+            document.body.removeChild(download);
+        };
+        const fileSelector = document.getElementById('savefileinput');
+        fileSelector.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                var r = new FileReader();
+                r.onload = function (e) {
+                    var contents = e.target.result;
+                    try {
+                        data = JSON.parse(atob(contents));
+                        console.log(data);
+                        updateData();
+                    } catch (e) {
+                        alert(e && e.message);
+                        console.error(e);
+                    }
+                }
+                r.readAsText(file);
+            }
+
+        });
+    </script>
+</body>

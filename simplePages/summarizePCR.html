@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarize result</title>
+</head>
+<style type="text/css">
+    html {
+        height: 100%;
+        font-size: 14px;
+    }
+
+    body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+    }
+
+    input[type="number"] {
+        width: 30px;
+    }
+
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .flex {
+        flex: 1 1 auto;
+    }
+
+    .m-5 {
+        margin: 5px;
+    }
+
+    .p-10 {
+        padding: 10px;
+    }
+
+    .label {
+        margin: 5px 0 0 5px;
+    }
+
+    .cell {
+        padding: 5px 10px;
+    }
+
+    .cell h4 {
+        margin: 0 10px 0 0;
+    }
+
+    .cell p {
+        margin: 0;
+    }
+
+    .negative {
+        background-color: #39a275;
+    }
+
+    .positive {
+        background-color: #b676b1;
+    }
+
+    .unknown {
+        background-color: #fecf6a;
+    }
+</style>
+<script>
+    const initialState = {
+        tall: 18,
+        width: 4,
+        text: "",
+        skipRooms: "",
+    };
+    const state = new Proxy(initialState, {
+        get(target, prop, receiver) {
+            const originalValue = Reflect.get(...arguments);
+            if (typeof prop === "string") {
+                const storageValue = localStorage.getItem(prop);
+                if (storageValue != null) {
+                    if (typeof originalValue === "string") {
+                        return storageValue;
+                    }
+                    if (typeof originalValue === "number") {
+                        return Number(storageValue);
+                    }
+                }
+                return originalValue;
+            }
+            return originalValue;
+        },
+        set(target, prop, value, receiver) {
+            if (typeof value === "string" || typeof value === "number") {
+                if (typeof prop === "string") {
+                    localStorage.setItem(prop, value + "");
+                }
+            }
+            return Reflect.set(...arguments);
+        }
+    });
+    const constants = {
+        negative: "negative",
+        positive: "positive",
+        unknown: "unknown"
+    };
+    const classNames = {
+        cell: "cell",
+    }
+    const calculate = () => {
+        const lines = state.text.split("\n");
+        const notUsedLines = new Set(lines);
+        const lineResult = [];
+        const positiveRooms = [];
+        const unknownRooms = [];
+        for (let level = state.tall; level > 0; level--) {
+            for (let room = state.width; room > 0; room--) {
+                const roomId = `${level}0${room}`;
+                const targetLines = Array.from(notUsedLines).filter((line) => line.includes(roomId));
+                targetLines.forEach((line) => notUsedLines.delete(line));
+                const targetText = targetLines.join("\n");
+                let targetResult = constants.unknown;
+                if (targetText.includes("阳")) {
+                    targetResult = constants.positive;
+                    positiveRooms.unshift(roomId);
+                } else if (targetText.includes("阴")) {
+                    targetResult = constants.negative;
+                } else {
+                    unknownRooms.unshift(roomId);
+                }
+                lineResult.unshift({
+                    id: roomId,
+                    result: targetResult,
+                    text: targetText,
+                });
+            }
+            const outputDiv = document.getElementById("output-main");
+            outputDiv.innerHTML = "";
+            const createEle = (type, text, classNames, children) => {
+                const element = document.createElement(type);
+                if (classNames) {
+                    element.className = classNames;
+                }
+                if (text) {
+                    element.innerText = text;
+                }
+                if (children && children.length > 0) {
+                    children.forEach((child) => {
+                        element.appendChild(child);
+                    })
+                }
+                return element;
+            }
+            if (notUsedLines.size > 0) {
+                outputDiv.appendChild(createEle("div", "", `${classNames.cell} ${constants.positive}`, [
+                    createEle("h4", "无效行", ""),
+                    ...Array.from(notUsedLines).map((line) => createEle("p", line, ""))
+                ]));
+            }
+            if (unknownRooms.length > 0) {
+                const skipRooms = state.skipRooms.split(/,|，/).map((s) => s.trim());
+                const trueUnknownRooms = [];
+                const falseUnknownRooms = [];
+                unknownRooms.forEach((room) => {
+                    if (skipRooms.includes(room)) {
+                        falseUnknownRooms.push(room);
+                    } else {
+                        trueUnknownRooms.push(room);
+                    }
+                });
+                let text = trueUnknownRooms.join(", ") || "无";
+                if (falseUnknownRooms.length > 0) {
+                    text += ` (已忽略${falseUnknownRooms.join(", ")})`;
+                }
+                outputDiv.appendChild(createEle("div", "", `${classNames.cell} ${constants.unknown}`, [
+                    createEle("h4", "未搜索到的户号"),
+                    createEle("p", trueUnknownRooms.join(", ") || "无"),
+                    falseUnknownRooms.length > 0 && createEle("p", `已忽略${falseUnknownRooms.join(", ")}`),
+                ].filter((s) => !!s)));
+            }
+            if (positiveRooms.length > 0) {
+                outputDiv.appendChild(createEle("div", "", `${classNames.cell} ${constants.positive}`, [
+                    createEle("h4", "阳性户号", ""),
+                    createEle("p", positiveRooms.join(", "), "")
+                ]));
+            }
+            for (const room of lineResult) {
+                outputDiv.appendChild(createEle("div", "", `flex-row ${classNames.cell} ${room.result}`, [
+                    createEle("h4", room.id, ""),
+                    createEle("p", room.text, ""),
+                ]));
+            }
+        }
+    };
+    const initialize = () => {
+        const bindInputControl = (key) => {
+            if (typeof key !== "string") return;
+            const inputControl = document.getElementById(`input-${key}`);
+            if (inputControl == null) return;
+            inputControl.value = state[key];
+            inputControl.oninput = (event) => {
+                const value = event.target.value;
+                state[key] = value;
+                calculate();
+            };
+        }
+        Object.keys(state).forEach((key) => {
+            bindInputControl(key);
+        })
+    }
+</script>
+
+<body>
+    <div class="p-10 flex-column flex">
+        <div class="flex-row flex">
+            <div class="flex-column flex">
+                <div class="label">楼栋信息</div>
+                <div class="m-5">
+                    <input id="input-tall" type="number" min="1" value="18" />层楼，
+                    一梯<input id="input-width" type="number" min="1" value="4" />户
+                </div>
+                <div class="label">不参与统计的户号, 用逗号分隔</div>
+                <textarea id="input-skipRooms" class="m-5" row=3 name="text" placeholder="Enter text"></textarea>
+                <div class="label">接龙文本</div>
+                <textarea id="input-text" class="m-5 flex" name="text" placeholder="Enter text"></textarea>
+            </div>
+            <div id="output-main" class="m-5 flex">
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    initialize();
+    calculate();
+</script>
+
+</html>

@@ -115,6 +115,9 @@
         cell: "cell",
     }
     const calculate = () => {
+        const outputDiv = document.getElementById("output-main");
+        outputDiv.innerHTML = "";
+        if (!state.text) return;
         const lines = state.text.split("\n");
         const notUsedLines = new Set(lines);
         const lineResult = [];
@@ -126,14 +129,15 @@
                 const targetLines = Array.from(notUsedLines).filter((line) => line.includes(roomId));
                 targetLines.forEach((line) => notUsedLines.delete(line));
                 const targetText = targetLines.join("\n");
-                let targetResult = constants.unknown;
+                let targetResult = "";
                 if (targetText.includes("阳")) {
                     targetResult = constants.positive;
                     positiveRooms.unshift(roomId);
                 } else if (targetText.includes("阴")) {
                     targetResult = constants.negative;
-                } else {
+                } else if (targetLines.length === 0) {
                     unknownRooms.unshift(roomId);
+                    targetResult = constants.unknown;
                 }
                 lineResult.unshift({
                     id: roomId,
@@ -141,62 +145,60 @@
                     text: targetText,
                 });
             }
-            const outputDiv = document.getElementById("output-main");
-            outputDiv.innerHTML = "";
-            const createEle = (type, text, classNames, children) => {
-                const element = document.createElement(type);
-                if (classNames) {
-                    element.className = classNames;
+        }
+        const createEle = (type, text, classNames, children) => {
+            const element = document.createElement(type);
+            if (classNames) {
+                element.className = classNames;
+            }
+            if (text) {
+                element.innerText = text;
+            }
+            if (children && children.length > 0) {
+                children.forEach((child) => {
+                    element.appendChild(child);
+                })
+            }
+            return element;
+        }
+        if (notUsedLines.size > 0) {
+            outputDiv.appendChild(createEle("div", "", `${classNames.cell} ${constants.positive}`, [
+                createEle("h4", "无效行", ""),
+                ...Array.from(notUsedLines).map((line) => createEle("p", line, ""))
+            ]));
+        }
+        if (unknownRooms.length > 0) {
+            const skipRooms = state.skipRooms.split(/,|，/).map((s) => s.trim());
+            const trueUnknownRooms = [];
+            const falseUnknownRooms = [];
+            unknownRooms.forEach((room) => {
+                if (skipRooms.includes(room)) {
+                    falseUnknownRooms.push(room);
+                } else {
+                    trueUnknownRooms.push(room);
                 }
-                if (text) {
-                    element.innerText = text;
-                }
-                if (children && children.length > 0) {
-                    children.forEach((child) => {
-                        element.appendChild(child);
-                    })
-                }
-                return element;
+            });
+            let text = trueUnknownRooms.join(", ") || "无";
+            if (falseUnknownRooms.length > 0) {
+                text += ` (已忽略${falseUnknownRooms.join(", ")})`;
             }
-            if (notUsedLines.size > 0) {
-                outputDiv.appendChild(createEle("div", "", `${classNames.cell} ${constants.positive}`, [
-                    createEle("h4", "无效行", ""),
-                    ...Array.from(notUsedLines).map((line) => createEle("p", line, ""))
-                ]));
-            }
-            if (unknownRooms.length > 0) {
-                const skipRooms = state.skipRooms.split(/,|，/).map((s) => s.trim());
-                const trueUnknownRooms = [];
-                const falseUnknownRooms = [];
-                unknownRooms.forEach((room) => {
-                    if (skipRooms.includes(room)) {
-                        falseUnknownRooms.push(room);
-                    } else {
-                        trueUnknownRooms.push(room);
-                    }
-                });
-                let text = trueUnknownRooms.join(", ") || "无";
-                if (falseUnknownRooms.length > 0) {
-                    text += ` (已忽略${falseUnknownRooms.join(", ")})`;
-                }
-                outputDiv.appendChild(createEle("div", "", `${classNames.cell} ${constants.unknown}`, [
-                    createEle("h4", "未搜索到的户号"),
-                    createEle("p", trueUnknownRooms.join(", ") || "无"),
-                    falseUnknownRooms.length > 0 && createEle("p", `已忽略${falseUnknownRooms.join(", ")}`),
-                ].filter((s) => !!s)));
-            }
-            if (positiveRooms.length > 0) {
-                outputDiv.appendChild(createEle("div", "", `${classNames.cell} ${constants.positive}`, [
-                    createEle("h4", "阳性户号", ""),
-                    createEle("p", positiveRooms.join(", "), "")
-                ]));
-            }
-            for (const room of lineResult) {
-                outputDiv.appendChild(createEle("div", "", `flex-row ${classNames.cell} ${room.result}`, [
-                    createEle("h4", room.id, ""),
-                    createEle("p", room.text, ""),
-                ]));
-            }
+            outputDiv.appendChild(createEle("div", "", `${classNames.cell} ${constants.unknown}`, [
+                createEle("h4", "未搜索到的户号"),
+                createEle("p", trueUnknownRooms.join(", ") || "无"),
+                falseUnknownRooms.length > 0 && createEle("p", `已忽略${falseUnknownRooms.join(", ")}`),
+            ].filter((s) => !!s)));
+        }
+        if (positiveRooms.length > 0) {
+            outputDiv.appendChild(createEle("div", "", `${classNames.cell} ${constants.positive}`, [
+                createEle("h4", "阳性户号", ""),
+                createEle("p", positiveRooms.join(", "), "")
+            ]));
+        }
+        for (const room of lineResult) {
+            outputDiv.appendChild(createEle("div", "", `flex-row ${classNames.cell} ${room.result}`, [
+                createEle("h4", room.id, ""),
+                createEle("p", room.text, ""),
+            ]));
         }
     };
     const initialize = () => {
